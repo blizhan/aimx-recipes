@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:action-taxonomy-data",
+  "schema_version": "2.0.0",
+  "taxonomy_version": "2.0.0",
+  "groups": {
+    "data_preparation": {
+      "leaves": {
+        "imputation": "Fill missing values",
+        "filtering": "Remove or select rows",
+        "resampling": "Change sampling distribution"
+      }
+    },
+    "feature_engineering": {
+      "leaves": {
+        "encoding": "Encode variables",
+        "lag_features": "Use past observations",
+        "aggregation": "Summarize groups or windows",
+        "transformation": "Transform features"
+      }
+    },
+    "model_choice": {
+      "leaves": {
+        "family_selection": "Choose a model family"
+      }
+    },
+    "training": {
+      "leaves": {
+        "regularization": "Constrain model fit",
+        "objective": "Choose loss function",
+        "optimization": "Adjust optimization procedure"
+      }
+    },
+    "validation": {
+      "leaves": {
+        "split": "Choose evaluation split or protocol"
+      }
+    },
+    "ensemble": {
+      "leaves": {
+        "blending": "Combine predictions directly",
+        "stacking": "Fit a meta-model on predictions"
+      }
+    },
+    "prediction": {
+      "leaves": {
+        "calibration": "Adjust prediction calibration",
+        "clipping": "Bound output predictions"
+      }
+    }
+  }
+}

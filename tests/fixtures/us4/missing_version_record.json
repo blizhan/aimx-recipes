@@ -1,0 +1,7 @@
+{
+  "entity_type": "problem",
+  "problem_id": "prob:no-version",
+  "kind": "competition",
+  "title": "Problem Missing Schema Version",
+  "source_ids": []
+}

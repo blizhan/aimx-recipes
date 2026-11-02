@@ -1,0 +1,84 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "source",
+    "source_id": "src:us2-writeup",
+    "kind": "synthetic",
+    "canonical_ref": "synthetic:evidence-type:reported_failure",
+    "license": {
+      "status": "permissive",
+      "identifier": "CC0-1.0",
+      "attribution": "Project-authored synthetic fixture"
+    },
+    "snapshot_id": "snap:us2-v1",
+    "content_sha256": "087051c2d6f6cf58ec0b120e02cc190ffd0123348012bce8352cd739474fbb4d"
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "document",
+    "document_id": "doc:us2-body",
+    "source_id": "src:us2-writeup",
+    "snapshot_id": "snap:us2-v1",
+    "section": "body",
+    "content_sha256": "087051c2d6f6cf58ec0b120e02cc190ffd0123348012bce8352cd739474fbb4d",
+    "normalization_version": "2.0.0",
+    "title": "Project-authored reported_failure example"
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "problem",
+    "problem_id": "prob:tab-forecasting-01",
+    "kind": "competition",
+    "title": "Tabular Energy Demand Forecasting",
+    "source_ids": [
+      "src:us2-writeup"
+    ]
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "attempt",
+    "attempt_id": "att:hourly-lags-ablation",
+    "problem_id": "prob:tab-forecasting-01",
+    "document_id": "doc:us2-body",
+    "recipe_id": null,
+    "raw_method_name": "Hourly Lags Model",
+    "baseline_method": "LightGBM baseline",
+    "candidate_method": "LightGBM + Hourly Lags",
+    "configuration": {},
+    "validation_protocol": null,
+    "evaluation_scope": null,
+    "metric_name": null,
+    "metric_direction": null,
+    "baseline_value": null,
+    "candidate_value": null,
+    "reported_delta": null,
+    "joint_change": false,
+    "joint_changes": [],
+    "outcome": "negative",
+    "confounders": [],
+    "provenance": {
+      "origin": "synthetic",
+      "source_content_sha256": "087051c2d6f6cf58ec0b120e02cc190ffd0123348012bce8352cd739474fbb4d",
+      "fixture_id": "us2:ablation-fixture"
+    }
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "evidence",
+    "evidence_id": "ev:ablation-q1",
+    "attempt_id": "att:hourly-lags-ablation",
+    "document_id": "doc:us2-body",
+    "type": "reported_failure",
+    "outcome": "negative",
+    "quote": "Hourly lags failed to improve the forecast in the reported trial.",
+    "char_start": 0,
+    "char_end": 65,
+    "uncertainty": [],
+    "comparison": null,
+    "provenance": {
+      "origin": "synthetic",
+      "source_content_sha256": "087051c2d6f6cf58ec0b120e02cc190ffd0123348012bce8352cd739474fbb4d",
+      "fixture_id": "us2:ablation-fixture"
+    }
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "vocabulary_version": "2.0.0",
+  "taxonomy_version": "2.0.0",
+  "compatibility": "breaking",
+  "affected_entities": [
+    "source",
+    "document",
+    "problem",
+    "problem_profile",
+    "recipe",
+    "attempt",
+    "evidence",
+    "experiment_proposal"
+  ],
+  "extraction_regeneration": "not_applicable",
+  "rationale": "Breaking correction of the unreleased 1.0.0 draft: applicability is a vocabulary condition list; populated proposal values, linked references, provenance, JSON domains, and resource metadata are strictly validated. All contract resources and validation envelopes use 2.0.0; 1.0.0 is unsupported and is never silently migrated. No frozen extraction corpus exists, so regeneration is not applicable now. Any external frozen 1.0.0 extraction must be explicitly regenerated and reviewed before use with 2.0.0; this release performs no regeneration.",
+  "aimx_contract_revision": "1b2dd98b6621aa893c056013cd0dd06fff7ca405"
+}

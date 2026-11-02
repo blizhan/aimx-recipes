@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:problem",
+  "title": "Problem Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "problem_id",
+    "kind",
+    "title",
+    "source_ids"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "problem"
+    },
+    "problem_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "competition",
+        "benchmark_case",
+        "caller_task"
+      ]
+    },
+    "title": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+      },
+      "uniqueItems": true
+    },
+    "description": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "as_of": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

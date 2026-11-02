@@ -1,0 +1,420 @@
+{
+  "manifest_version": "2.0.0",
+  "cases": {
+    "us2_type_controlled_ablation": {
+      "case_id": "us2_type_controlled_ablation",
+      "description": "Project-authored linked example: controlled_ablation; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/controlled_ablation_bundle.json",
+      "context_path": "evidence_types/controlled_ablation.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "us2_type_reported_gain": {
+      "case_id": "us2_type_reported_gain",
+      "description": "Project-authored linked example: reported_gain; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/reported_gain_bundle.json",
+      "context_path": "evidence_types/reported_gain.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "us2_type_reported_failure": {
+      "case_id": "us2_type_reported_failure",
+      "description": "Project-authored linked example: reported_failure; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/reported_failure_bundle.json",
+      "context_path": "evidence_types/reported_failure.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "us2_type_used_in_solution": {
+      "case_id": "us2_type_used_in_solution",
+      "description": "Project-authored linked example: used_in_solution; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/used_in_solution_bundle.json",
+      "context_path": "evidence_types/used_in_solution.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "us2_type_attempted": {
+      "case_id": "us2_type_attempted",
+      "description": "Project-authored linked example: attempted; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/attempted_bundle.json",
+      "context_path": "evidence_types/attempted.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "us2_type_author_opinion": {
+      "case_id": "us2_type_author_opinion",
+      "description": "Project-authored linked example: author_opinion; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/author_opinion_bundle.json",
+      "context_path": "evidence_types/author_opinion.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "us2_type_independently_reproduced": {
+      "case_id": "us2_type_independently_reproduced",
+      "description": "Project-authored linked example: independently_reproduced; comparison strength and outcome remain separate.",
+      "input_path": "evidence_types/independently_reproduced_bundle.json",
+      "context_path": "evidence_types/independently_reproduced.txt",
+      "expected_level": "contextual",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": [
+        "FR-009",
+        "FR-010"
+      ],
+      "success_criteria": [
+        "SC-003",
+        "SC-004"
+      ]
+    },
+    "problem_valid": {
+      "case_id": "problem_valid",
+      "description": "Valid Problem entity fixture with full fields",
+      "input_path": "problem/valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-001"],
+      "success_criteria": ["SC-001", "SC-007"]
+    },
+    "problem_invalid": {
+      "case_id": "problem_invalid",
+      "description": "Problem entity missing required title field",
+      "input_path": "problem/invalid_missing_title.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "field.required",
+          "pointer": "/title"
+        }
+      ],
+      "requirements": ["FR-001", "FR-002"],
+      "success_criteria": ["SC-001", "SC-007"]
+    },
+    "problem_invalid_missing_title": {
+      "case_id": "problem_invalid_missing_title",
+      "description": "Problem entity missing required title field",
+      "input_path": "problem/invalid_missing_title.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "field.required",
+          "pointer": "/title"
+        }
+      ],
+      "requirements": ["FR-001", "FR-002"],
+      "success_criteria": ["SC-001", "SC-007"]
+    },
+    "problem_invalid_kind": {
+      "case_id": "problem_invalid_kind",
+      "description": "Problem entity with unknown kind enum value",
+      "input_path": "problem/invalid_kind.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "value.invalid",
+          "pointer": "/kind"
+        }
+      ],
+      "requirements": ["FR-001", "FR-002"],
+      "success_criteria": ["SC-001", "SC-007"]
+    },
+    "problem_invalid_extra_field": {
+      "case_id": "problem_invalid_extra_field",
+      "description": "Problem entity with prohibited additional property",
+      "input_path": "problem/invalid_extra_field.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "field.unknown",
+          "pointer": "/unexpected_key"
+        }
+      ],
+      "requirements": ["FR-001", "FR-002"],
+      "success_criteria": ["SC-001", "SC-007"]
+    },
+    "profile_valid": {
+      "case_id": "profile_valid",
+      "description": "Valid rolling-origin problem profile with mixed basis and conflicts",
+      "input_path": "us1/profile_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-004", "FR-005", "FR-006"],
+      "success_criteria": ["SC-002"]
+    },
+    "profile_invalid": {
+      "case_id": "profile_invalid",
+      "description": "Problem profile with invalid task kind value",
+      "input_path": "us1/profile_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "value.invalid",
+          "pointer": "/facets/task.kind/value"
+        }
+      ],
+      "requirements": ["FR-004"],
+      "success_criteria": ["SC-002"]
+    },
+    "recipe_valid": {
+      "case_id": "recipe_valid",
+      "description": "Valid hourly lag feature generator recipe",
+      "input_path": "us1/recipe_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-007"],
+      "success_criteria": ["SC-002"]
+    },
+    "recipe_invalid": {
+      "case_id": "recipe_invalid",
+      "description": "Recipe with prohibited aggregate support count field",
+      "input_path": "us1/recipe_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "field.unknown",
+          "pointer": "/support"
+        }
+      ],
+      "requirements": ["FR-007", "FR-012"],
+      "success_criteria": ["SC-002"]
+    },
+    "source_valid": {
+      "case_id": "source_valid",
+      "description": "Valid Source entity with permissive license",
+      "input_path": "us2/source_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-001", "FR-003"],
+      "success_criteria": ["SC-001", "SC-003"]
+    },
+    "source_invalid": {
+      "case_id": "source_invalid",
+      "description": "Source entity with permissive license but null identifier",
+      "input_path": "us2/source_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "value.invalid",
+          "pointer": "/license/identifier"
+        }
+      ],
+      "requirements": ["FR-001", "FR-003"],
+      "success_criteria": ["SC-001", "SC-003"]
+    },
+    "document_valid": {
+      "case_id": "document_valid",
+      "description": "Valid Document entity with normalized content hash",
+      "input_path": "us2/document_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-001", "FR-003"],
+      "success_criteria": ["SC-001", "SC-003"]
+    },
+    "document_invalid": {
+      "case_id": "document_invalid",
+      "description": "Document entity with invalid SHA-256 format",
+      "input_path": "us2/document_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "value.invalid",
+          "pointer": "/content_sha256"
+        }
+      ],
+      "requirements": ["FR-001", "FR-003"],
+      "success_criteria": ["SC-001", "SC-003"]
+    },
+    "attempt_valid": {
+      "case_id": "attempt_valid",
+      "description": "Valid unmapped Attempt entity with neutral outcome",
+      "input_path": "us2/attempt_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-001", "FR-008"],
+      "success_criteria": ["SC-001", "SC-004"]
+    },
+    "attempt_invalid": {
+      "case_id": "attempt_invalid",
+      "description": "Attempt entity missing evaluation scope when numeric candidate value is present",
+      "input_path": "us2/attempt_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "attempt.scope_required",
+          "pointer": "/evaluation_scope"
+        }
+      ],
+      "requirements": ["FR-001", "FR-008"],
+      "success_criteria": ["SC-001", "SC-004"]
+    },
+    "evidence_valid": {
+      "case_id": "evidence_valid",
+      "description": "Valid Evidence entity with used_in_solution type",
+      "input_path": "us2/evidence_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-001", "FR-009", "FR-010"],
+      "success_criteria": ["SC-001", "SC-003"]
+    },
+    "evidence_invalid": {
+      "case_id": "evidence_invalid",
+      "description": "Evidence entity with controlled_ablation type missing comparison anchors",
+      "input_path": "us2/evidence_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "field.required",
+          "pointer": "/comparison"
+        }
+      ],
+      "requirements": ["FR-001", "FR-009"],
+      "success_criteria": ["SC-001", "SC-003"]
+    },
+    "proposal_valid": {
+      "case_id": "proposal_valid",
+      "description": "Valid ExperimentProposal with nullable decisions and requires_lead_review",
+      "input_path": "us3/proposal_valid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "valid",
+      "expected_diagnostics": [],
+      "requirements": ["FR-001", "FR-013", "FR-014"],
+      "success_criteria": ["SC-001", "SC-005"]
+    },
+    "proposal_invalid": {
+      "case_id": "proposal_invalid",
+      "description": "Proposal entity with invalid review_status",
+      "input_path": "us3/proposal_invalid.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "value.invalid",
+          "pointer": "/review_status"
+        }
+      ],
+      "requirements": ["FR-001", "FR-014"],
+      "success_criteria": ["SC-001", "SC-005"]
+    },
+    "version_unsupported": {
+      "case_id": "version_unsupported",
+      "description": "Record with unsupported future schema version 3.0.0",
+      "input_path": "us4/unsupported_version_record.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "version.unsupported",
+          "pointer": "/schema_version"
+        }
+      ],
+      "requirements": ["FR-015"],
+      "success_criteria": ["SC-006"]
+    },
+    "version_missing": {
+      "case_id": "version_missing",
+      "description": "Record with missing schema_version",
+      "input_path": "us4/missing_version_record.json",
+      "context_path": null,
+      "expected_level": "structural",
+      "expected_status": "invalid",
+      "expected_diagnostics": [
+        {
+          "code": "field.required",
+          "pointer": "/schema_version"
+        }
+      ],
+      "requirements": ["FR-015"],
+      "success_criteria": ["SC-006"]
+    }
+  }
+}

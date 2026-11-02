@@ -1,0 +1,8 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "problem",
+  "problem_id": "prob:tab-forecasting-03",
+  "kind": "unsupported_kind",
+  "title": "Invalid Kind Problem",
+  "source_ids": []
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "problem_profile",
+  "profile_id": "prof:tab-forecasting-01",
+  "problem_id": "prob:tab-forecasting-01",
+  "vocabulary_version": "2.0.0",
+  "facets": {
+    "task.kind": {
+      "value": "forecasting",
+      "basis": "observed",
+      "source": {
+        "kind": "caller",
+        "ref": "caller:benchmark"
+      },
+      "confidence": "high"
+    },
+    "modality.kind": {
+      "value": "tabular",
+      "basis": "observed"
+    },
+    "dataset.rows": {
+      "value": 50000,
+      "basis": "observed"
+    },
+    "dataset.features": {
+      "value": 32,
+      "basis": "observed"
+    },
+    "temporal.frequency": {
+      "value": "hourly",
+      "basis": "observed"
+    },
+    "temporal.horizon_steps": {
+      "value": 24,
+      "basis": "reported",
+      "confidence": "medium"
+    },
+    "temporal.covariates": {
+      "value": ["static", "historical", "future_known"],
+      "basis": "reported"
+    },
+    "validation.scheme": {
+      "value": "rolling_origin",
+      "basis": "observed"
+    },
+    "validation.fixed_protocol": {
+      "value": true,
+      "basis": "observed"
+    },
+    "validation.target_leakage_allowed": {
+      "value": false,
+      "basis": "inferred",
+      "confidence": "low"
+    },
+    "metric.name": {
+      "value": "rmse",
+      "basis": "observed"
+    },
+    "characteristics.non_stationarity": {
+      "value": true,
+      "basis": "reported",
+      "conflicts": [
+        {
+          "value": false,
+          "basis": "reported",
+          "confidence": "low"
+        }
+      ]
+    },
+    "symptoms.cv_lb_gap": {
+      "value": null,
+      "basis": "unknown"
+    }
+  },
+  "hard_constraints": [
+    {
+      "condition_id": "cond:no-target-leakage",
+      "facet": "validation.target_leakage_allowed",
+      "op": "eq",
+      "operand": false,
+      "description": "Target leakage strictly forbidden"
+    },
+    {
+      "condition_id": "cond:future-covariates-present",
+      "facet": "temporal.covariates",
+      "op": "contains",
+      "operand": "future_known",
+      "description": "Requires future known covariates"
+    }
+  ]
+}

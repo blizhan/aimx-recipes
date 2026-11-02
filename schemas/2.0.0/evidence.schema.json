@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:evidence",
+  "title": "Evidence Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "evidence_id",
+    "attempt_id",
+    "document_id",
+    "type",
+    "outcome",
+    "quote",
+    "char_start",
+    "char_end",
+    "uncertainty",
+    "comparison",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "evidence"
+    },
+    "evidence_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "attempt_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "document_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "controlled_ablation",
+        "reported_gain",
+        "reported_failure",
+        "used_in_solution",
+        "attempted",
+        "author_opinion",
+        "independently_reproduced"
+      ]
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["positive", "negative", "neutral", "mixed", "unclear"]
+    },
+    "quote": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "char_start": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "char_end": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      }
+    },
+    "comparison": {
+      "type": ["object", "null"],
+      "required": ["baseline", "candidate"],
+      "properties": {
+        "baseline": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "candidate": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/provenance"
+    }
+  },
+  "additionalProperties": false
+}

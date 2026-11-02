@@ -1,0 +1,1 @@
+With identical splits and settings, Baseline RMSE was 0.42; Candidate RMSE was 0.46 after adding hourly lags.

@@ -1,0 +1,29 @@
+{
+  "pinned_aimx_commit": "1b2dd98b6621aa893c056013cd0dd06fff7ca405",
+  "reference_paths": [
+    "specs/007-research-state/contracts/research-update.schema.json",
+    "src/aimx/research/validation.py"
+  ],
+  "compatibility_invariants": {
+    "review_status": "requires_lead_review",
+    "contract_version": 1,
+    "nullable_decisions": [
+      "evaluation.protocol_id",
+      "evaluation.protocol_sha256",
+      "evaluation.argv",
+      "evaluation.metric",
+      "evaluation.acceptance_rule",
+      "evaluation.preflight_evidence",
+      "data.scope_ids",
+      "data.phase",
+      "data.candidate_fingerprint",
+      "data.observation_revision",
+      "resources",
+      "failure_policy"
+    ],
+    "namespaced_extensions": [
+      "extensions.aimx_recipes.baseline_run",
+      "extensions.aimx_recipes.qualitative_cost"
+    ]
+  }
+}

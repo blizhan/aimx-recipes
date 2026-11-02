@@ -1,0 +1,48 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "experiment_proposal",
+  "proposal_id": "prop:invalid-approved-status",
+  "profile_id": "prof:tab-forecasting-01",
+  "recipe_id": "rec:lag-features-hourly",
+  "evidence_ids": ["ev:ablation-q1"],
+  "review_status": "approved_by_system",
+  "match": {
+    "level": "L1",
+    "transfer_risk": "low",
+    "assessments": []
+  },
+  "experiment_contract": {
+    "contract_version": 1,
+    "question": "Invalid proposal test",
+    "interventions": ["test"],
+    "fixed_controls": ["control"],
+    "expected_evidence": ["evidence"],
+    "disconfirmation": ["disconfirm"],
+    "confounders": [],
+    "evaluation": {
+      "protocol_id": null,
+      "protocol_sha256": null,
+      "argv": null,
+      "metric": null,
+      "acceptance_rule": null,
+      "preflight_evidence": null
+    },
+    "data": {
+      "scope_ids": null,
+      "phase": null,
+      "candidate_fingerprint": null,
+      "observation_revision": null
+    },
+    "resources": null,
+    "failure_policy": null,
+    "extensions": {
+      "aimx_recipes": {
+        "baseline_run": null,
+        "qualitative_cost": {
+          "implementation": "low",
+          "compute": "low"
+        }
+      }
+    }
+  }
+}

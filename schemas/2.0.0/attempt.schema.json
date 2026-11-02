@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:attempt",
+  "title": "Attempt Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "attempt_id",
+    "problem_id",
+    "document_id",
+    "recipe_id",
+    "raw_method_name",
+    "baseline_method",
+    "candidate_method",
+    "configuration",
+    "validation_protocol",
+    "evaluation_scope",
+    "metric_name",
+    "metric_direction",
+    "baseline_value",
+    "candidate_value",
+    "reported_delta",
+    "joint_change",
+    "joint_changes",
+    "outcome",
+    "confounders",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "attempt"
+    },
+    "attempt_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "problem_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "document_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "recipe_id": {
+      "type": ["string", "null"]
+    },
+    "raw_method_name": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "baseline_method": {
+      "type": ["string", "null"]
+    },
+    "candidate_method": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "configuration": {
+      "type": "object"
+    },
+    "validation_protocol": {
+      "type": ["string", "null"]
+    },
+    "evaluation_scope": {
+      "type": ["string", "null"],
+      "enum": ["cv", "public_lb", "private_lb", "holdout", null]
+    },
+    "metric_name": {
+      "type": ["string", "null"],
+      "enum": [
+        "rmse",
+        "mae",
+        "rmsle",
+        "pinball",
+        "auc",
+        "logloss",
+        "map_at_k",
+        "accuracy",
+        "calibration_error",
+        null
+      ]
+    },
+    "metric_direction": {
+      "type": ["string", "null"],
+      "enum": ["minimize", "maximize", null]
+    },
+    "baseline_value": {
+      "type": ["number", "null"]
+    },
+    "candidate_value": {
+      "type": ["number", "null"]
+    },
+    "reported_delta": {
+      "type": ["number", "null"]
+    },
+    "joint_change": {
+      "type": "boolean"
+    },
+    "joint_changes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      }
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["positive", "negative", "neutral", "mixed", "unclear"]
+    },
+    "confounders": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      }
+    },
+    "metric_k": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "provenance": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/provenance"
+    }
+  },
+  "additionalProperties": false
+}

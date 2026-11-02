@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:facet-vocabulary",
+  "title": "Facet Vocabulary Definition Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "vocabulary_version",
+    "facets",
+    "metrics",
+    "operators"
+  ],
+  "properties": {
+    "$schema": {"const": "https://json-schema.org/draft/2020-12/schema"},
+    "$id": {"const": "urn:aimx-recipes:schema:2.0.0:facet-vocabulary-data"},
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "vocabulary_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "operators": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "eq",
+          "ne",
+          "in",
+          "not_in",
+          "lt",
+          "lte",
+          "gt",
+          "gte",
+          "contains",
+          "not_contains",
+          "present",
+          "absent"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["direction", "domain", "requires_k"],
+        "properties": {
+          "direction": {
+            "type": "string",
+            "enum": ["minimize", "maximize"]
+          },
+          "domain": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "requires_k": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "facets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "cardinality", "allowed_operators"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["enum", "boolean", "integer", "number", "collection", "prior_attempts"]
+          },
+          "cardinality": {
+            "type": "string",
+            "enum": ["scalar", "collection"]
+          },
+          "allowed_operators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "allowed_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "minimum": {
+            "type": "number"
+          },
+          "maximum": {
+            "type": "number"
+          },
+          "unit": {
+            "type": ["string", "null"]
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

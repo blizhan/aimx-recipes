@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:facet-vocabulary-data",
+  "schema_version": "2.0.0",
+  "vocabulary_version": "2.0.0",
+  "operators": [
+    "eq",
+    "ne",
+    "in",
+    "not_in",
+    "lt",
+    "lte",
+    "gt",
+    "gte",
+    "contains",
+    "not_contains",
+    "present",
+    "absent"
+  ],
+  "metrics": {
+    "rmse": {
+      "direction": "minimize",
+      "domain": [0, null],
+      "requires_k": false
+    },
+    "mae": {
+      "direction": "minimize",
+      "domain": [0, null],
+      "requires_k": false
+    },
+    "rmsle": {
+      "direction": "minimize",
+      "domain": [0, null],
+      "requires_k": false
+    },
+    "pinball": {
+      "direction": "minimize",
+      "domain": [0, null],
+      "requires_k": false
+    },
+    "auc": {
+      "direction": "maximize",
+      "domain": [0, 1],
+      "requires_k": false
+    },
+    "logloss": {
+      "direction": "minimize",
+      "domain": [0, null],
+      "requires_k": false
+    },
+    "map_at_k": {
+      "direction": "maximize",
+      "domain": [0, 1],
+      "requires_k": true
+    },
+    "accuracy": {
+      "direction": "maximize",
+      "domain": [0, 1],
+      "requires_k": false
+    },
+    "calibration_error": {
+      "direction": "minimize",
+      "domain": [0, null],
+      "requires_k": false
+    }
+  },
+  "facets": {
+    "task.kind": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": [
+        "regression",
+        "binary_classification",
+        "multiclass_classification",
+        "ranking",
+        "forecasting"
+      ],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Prediction task category"
+    },
+    "target.kind": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": ["point", "quantile", "distribution", "probability"],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Prediction target output type"
+    },
+    "target.long_tail": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Long-tailed target distribution"
+    },
+    "target.bounded": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Target has finite domain bounds"
+    },
+    "modality.kind": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": [
+        "tabular",
+        "time_series",
+        "image",
+        "text",
+        "audio",
+        "multimodal"
+      ],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Data modality"
+    },
+    "dataset.rows": {
+      "type": "integer",
+      "cardinality": "scalar",
+      "minimum": 0,
+      "unit": "rows",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Observed dataset row count"
+    },
+    "dataset.features": {
+      "type": "integer",
+      "cardinality": "scalar",
+      "minimum": 0,
+      "unit": "features",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Input feature count"
+    },
+    "dataset.missing_fraction": {
+      "type": "number",
+      "cardinality": "scalar",
+      "minimum": 0,
+      "maximum": 1,
+      "unit": "ratio",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Fraction of missing cells in input"
+    },
+    "dataset.high_cardinality_categoricals": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "High-cardinality categorical features reported"
+    },
+    "dataset.group_structure": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Meaningful grouping among rows"
+    },
+    "temporal.frequency": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": [
+        "irregular",
+        "subhourly",
+        "hourly",
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Sampling cadence"
+    },
+    "temporal.horizon_steps": {
+      "type": "integer",
+      "cardinality": "scalar",
+      "minimum": 1,
+      "unit": "steps",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Forecast horizon in sampling steps"
+    },
+    "temporal.covariates": {
+      "type": "collection",
+      "cardinality": "collection",
+      "allowed_values": ["static", "historical", "future_known"],
+      "allowed_operators": ["contains", "not_contains", "present", "absent"],
+      "description": "Available temporal covariate classes"
+    },
+    "temporal.future_data_allowed": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Whether information beyond prediction time is allowed"
+    },
+    "validation.scheme": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": [
+        "kfold",
+        "stratified",
+        "group",
+        "time_split",
+        "rolling_origin",
+        "holdout"
+      ],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Validation split scheme"
+    },
+    "validation.fixed_protocol": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Whether evaluation protocol is fixed by the task"
+    },
+    "validation.target_leakage_allowed": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Whether target leakage is permitted"
+    },
+    "metric.name": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": [
+        "rmse",
+        "mae",
+        "rmsle",
+        "pinball",
+        "auc",
+        "logloss",
+        "map_at_k",
+        "accuracy",
+        "calibration_error"
+      ],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Evaluation metric identity"
+    },
+    "metric.k": {
+      "type": "integer",
+      "cardinality": "scalar",
+      "minimum": 1,
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Ranking cutoff parameter, only valid with map_at_k"
+    },
+    "characteristics.non_stationarity": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Changing data-generating distribution reported"
+    },
+    "characteristics.class_imbalance": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Severe class imbalance reported"
+    },
+    "characteristics.distribution_shift": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Train/eval distribution shift reported"
+    },
+    "characteristics.leakage_risk": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Potential feature leakage reported"
+    },
+    "symptoms.overfitting": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Overfitting observed"
+    },
+    "symptoms.cv_lb_gap": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Cross-validation to leaderboard discrepancy"
+    },
+    "symptoms.poor_calibration": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Poor prediction calibration"
+    },
+    "symptoms.extreme_underprediction": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Severe underprediction on extreme values"
+    },
+    "compute.gpu_available": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "GPU accelerator available"
+    },
+    "compute.runtime_seconds": {
+      "type": "number",
+      "cardinality": "scalar",
+      "minimum": 0,
+      "unit": "seconds",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Available runtime budget in seconds"
+    },
+    "compute.memory_bytes": {
+      "type": "integer",
+      "cardinality": "scalar",
+      "minimum": 0,
+      "unit": "bytes",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "lt", "lte", "gt", "gte", "present", "absent"],
+      "description": "Available memory budget in bytes"
+    },
+    "constraints.commercial_use_required": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Intended use requires commercial permission"
+    },
+    "constraints.redistribution_required": {
+      "type": "boolean",
+      "cardinality": "scalar",
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Intended use requires redistribution permission"
+    },
+    "constraints.deployment": {
+      "type": "enum",
+      "cardinality": "scalar",
+      "allowed_values": ["offline_batch", "online_service", "edge"],
+      "allowed_operators": ["eq", "ne", "in", "not_in", "present", "absent"],
+      "description": "Deployment environment"
+    },
+    "prior_attempts": {
+      "type": "prior_attempts",
+      "cardinality": "collection",
+      "allowed_operators": ["present", "absent"],
+      "description": "Prior attempted recipe references and statuses"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "recipe",
+  "recipe_id": "rec:lag-features-hourly",
+  "canonical_name": "Multi-Horizon Hourly Lag Feature Generator",
+  "aliases": ["hourly_lags", "autoregressive_features"],
+  "vocabulary_version": "2.0.0",
+  "taxonomy_version": "2.0.0",
+  "action_type": "feature_engineering",
+  "action": "feature_engineering.lag_features",
+  "description": "Construct 24h, 48h, and 168h autoregressive lags for hourly forecasting series.",
+  "applicability": [
+    {"condition_id": "cond:app-forecasting", "facet": "task.kind", "op": "eq", "operand": "forecasting"},
+    {"condition_id": "cond:app-rolling-origin", "facet": "validation.scheme", "op": "eq", "operand": "rolling_origin"}
+  ],
+  "preconditions": [
+    {
+      "condition_id": "cond:rec-hourly-freq",
+      "facet": "temporal.frequency",
+      "op": "eq",
+      "operand": "hourly",
+      "description": "Requires hourly sampling cadence"
+    }
+  ],
+  "hard_constraints": [
+    {
+      "condition_id": "cond:rec-no-leakage",
+      "facet": "validation.target_leakage_allowed",
+      "op": "eq",
+      "operand": false,
+      "description": "Cannot use future data as lags"
+    }
+  ],
+  "contraindications": ["irregular sampling cadences"],
+  "configuration": {
+    "lags": [24, 48, 168],
+    "fill_strategy": "forward"
+  },
+  "implementation_refs": ["https://example.com/recipes/hourly-lags"],
+  "expected_effect": ["Captures diurnal and weekly seasonality"],
+  "cost_profile": {
+    "implementation": "low",
+    "compute": "low"
+  }
+}

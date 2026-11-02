@@ -1,0 +1,1 @@
+We tried hourly lags during development but did not record their outcome.

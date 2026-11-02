@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:common",
+  "title": "Common Definitions",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$",
+      "not": {"pattern": "\\s"}
+    },
+    "sha256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "non_empty_text": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "nullable_non_empty_text": {
+      "type": ["string", "null"],
+      "pattern": "\\S"
+    },
+    "nullable_sha256": {
+      "type": ["string", "null"],
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "source",
+        "document",
+        "problem",
+        "problem_profile",
+        "recipe",
+        "attempt",
+        "evidence",
+        "experiment_proposal"
+      ]
+    },
+    "condition": {
+      "type": "object",
+      "required": ["condition_id", "facet", "op", "operand"],
+      "properties": {
+        "condition_id": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+        },
+        "facet": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "op": {
+          "type": "string",
+          "enum": [
+            "eq",
+            "ne",
+            "in",
+            "not_in",
+            "lt",
+            "lte",
+            "gt",
+            "gte",
+            "contains",
+            "not_contains",
+            "present",
+            "absent"
+          ]
+        },
+        "operand": {},
+        "description": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "facet_source": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["document", "caller", "annotation"]
+        },
+        "ref": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "facet_assertion_no_conflicts": {
+      "type": "object",
+      "required": ["value", "basis"],
+      "properties": {
+        "value": {},
+        "basis": {
+          "type": "string",
+          "enum": ["observed", "reported", "inferred", "unknown"]
+        },
+        "source": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/facet_source"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "facet_assertion": {
+      "type": "object",
+      "required": ["value", "basis"],
+      "properties": {
+        "value": {},
+        "basis": {
+          "type": "string",
+          "enum": ["observed", "reported", "inferred", "unknown"]
+        },
+        "source": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/facet_source"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/facet_assertion_no_conflicts"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "cost_profile": {
+      "type": "object",
+      "required": ["implementation", "compute"],
+      "properties": {
+        "implementation": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "unknown"]
+        },
+        "compute": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "unknown"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance_extracted": {
+      "type": "object",
+      "required": [
+        "origin",
+        "source_content_sha256",
+        "provider",
+        "requested_model",
+        "served_model",
+        "prompt_version",
+        "prompt_hash",
+        "schema_version",
+        "extractor_version",
+        "extracted_at"
+      ],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "const": "extracted"
+        },
+        "source_content_sha256": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"
+        },
+        "provider": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "requested_model": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "served_model": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "prompt_version": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "prompt_hash": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"
+        },
+        "schema_version": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "extractor_version": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "extracted_at": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/timestamp"
+        },
+        "fallback_served": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance_human": {
+      "type": "object",
+      "required": ["origin", "source_content_sha256", "author_ref", "authored_at"],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "const": "human"
+        },
+        "source_content_sha256": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"
+        },
+        "author_ref": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "authored_at": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/timestamp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance_synthetic": {
+      "type": "object",
+      "required": ["origin", "source_content_sha256", "fixture_id"],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "const": "synthetic"
+        },
+        "source_content_sha256": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"
+        },
+        "fixture_id": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "oneOf": [
+        {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/provenance_extracted"},
+        {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/provenance_human"},
+        {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/provenance_synthetic"}
+      ]
+    }
+  }
+}

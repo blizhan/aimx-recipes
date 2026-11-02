@@ -1,0 +1,8 @@
+{
+  "schema_version": "3.0.0",
+  "entity_type": "problem",
+  "problem_id": "prob:v2-future",
+  "kind": "competition",
+  "title": "Future Version Problem",
+  "source_ids": []
+}

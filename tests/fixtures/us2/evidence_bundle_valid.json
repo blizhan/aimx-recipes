@@ -1,0 +1,85 @@
+[
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "source",
+    "source_id": "src:us2-writeup",
+    "kind": "writeup",
+    "canonical_ref": "https://example.com/writeup-us2",
+    "license": {
+      "status": "permissive",
+      "identifier": "CC-BY-4.0",
+      "attribution": "Research Community"
+    },
+    "snapshot_id": "snap:us2-v1",
+    "content_sha256": "a7b8574a40d7cad943efcd14876c446caee64265f2b3cab9009ec89f5f0710ff"
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "document",
+    "document_id": "doc:us2-body",
+    "source_id": "src:us2-writeup",
+    "snapshot_id": "snap:us2-v1",
+    "section": "body",
+    "content_sha256": "a7b8574a40d7cad943efcd14876c446caee64265f2b3cab9009ec89f5f0710ff",
+    "normalization_version": "2.0.0",
+    "title": "Hourly Lags Ablation Writeup"
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "problem",
+    "problem_id": "prob:tab-forecasting-01",
+    "kind": "competition",
+    "title": "Tabular Energy Demand Forecasting",
+    "source_ids": ["src:us2-writeup"]
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "attempt",
+    "attempt_id": "att:hourly-lags-ablation",
+    "problem_id": "prob:tab-forecasting-01",
+    "document_id": "doc:us2-body",
+    "recipe_id": null,
+    "raw_method_name": "Hourly Lags Model",
+    "baseline_method": "LightGBM baseline",
+    "candidate_method": "LightGBM + Hourly Lags",
+    "configuration": {"lags": [24, 48]},
+    "validation_protocol": "rolling_origin_5fold",
+    "evaluation_scope": "cv",
+    "metric_name": "rmse",
+    "metric_direction": "minimize",
+    "baseline_value": 0.42,
+    "candidate_value": 0.38,
+    "reported_delta": -0.04,
+    "joint_change": false,
+    "joint_changes": [],
+    "outcome": "positive",
+    "confounders": [],
+    "provenance": {
+      "origin": "synthetic",
+      "source_content_sha256": "a7b8574a40d7cad943efcd14876c446caee64265f2b3cab9009ec89f5f0710ff",
+      "fixture_id": "us2:ablation-fixture"
+    }
+  },
+  {
+    "schema_version": "2.0.0",
+    "entity_type": "evidence",
+    "evidence_id": "ev:ablation-q1",
+    "attempt_id": "att:hourly-lags-ablation",
+    "document_id": "doc:us2-body",
+    "type": "controlled_ablation",
+    "outcome": "positive",
+    "quote": "LightGBM baseline achieved RMSE 0.42 while the proposed hourly lags candidate achieved RMSE 0.38",
+    "char_start": 47,
+    "char_end": 143,
+    "uncertainty": [],
+    "comparison": {
+      "baseline": "LightGBM baseline",
+      "candidate": "proposed hourly lags candidate"
+    },
+    "provenance": {
+      "origin": "synthetic",
+      "source_content_sha256": "a7b8574a40d7cad943efcd14876c446caee64265f2b3cab9009ec89f5f0710ff",
+      "fixture_id": "us2:ablation-fixture"
+    }
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:problem_profile",
+  "title": "Problem Profile Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "profile_id",
+    "problem_id",
+    "vocabulary_version",
+    "facets",
+    "hard_constraints"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "problem_profile"
+    },
+    "profile_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "problem_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "vocabulary_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "facets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/facet_assertion"
+      }
+    },
+    "hard_constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/condition"
+      }
+    }
+  },
+  "additionalProperties": false
+}

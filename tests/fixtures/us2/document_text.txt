@@ -1,0 +1,1 @@
+In our ablation study on the validation split, LightGBM baseline achieved RMSE 0.42 while the proposed hourly lags candidate achieved RMSE 0.38, demonstrating significant gain without target leakage.

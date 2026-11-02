@@ -1,0 +1,11 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "document",
+  "document_id": "doc:valid-document-01",
+  "source_id": "src:valid-source-01",
+  "snapshot_id": "snap:001",
+  "section": "body",
+  "content_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "normalization_version": "2.0.0",
+  "title": "Valid Document Title"
+}

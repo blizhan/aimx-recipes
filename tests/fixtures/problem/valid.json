@@ -1,0 +1,10 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "problem",
+  "problem_id": "prob:tab-forecasting-01",
+  "kind": "competition",
+  "title": "Tabular Energy Demand Forecasting",
+  "source_ids": ["src:competition-1"],
+  "description": "Predict regional hourly energy demand across rolling evaluation windows.",
+  "as_of": "2026-01-01T00:00:00Z"
+}

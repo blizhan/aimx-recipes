@@ -1,0 +1,14 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "problem_profile",
+  "profile_id": "prof:tab-forecasting-invalid",
+  "problem_id": "prob:tab-forecasting-01",
+  "vocabulary_version": "2.0.0",
+  "facets": {
+    "task.kind": {
+      "value": "invalid_task_category",
+      "basis": "observed"
+    }
+  },
+  "hard_constraints": []
+}

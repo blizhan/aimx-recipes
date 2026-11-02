@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:experiment_proposal",
+  "title": "Experiment Proposal Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "proposal_id",
+    "profile_id",
+    "recipe_id",
+    "evidence_ids",
+    "review_status",
+    "match",
+    "experiment_contract"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "experiment_proposal"
+    },
+    "proposal_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "profile_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "recipe_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "review_status": {
+      "type": "string",
+      "const": "requires_lead_review"
+    },
+    "match": {
+      "type": "object",
+      "required": ["level", "transfer_risk", "assessments"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["L1", "L2", "L3", "L4"]
+        },
+        "transfer_risk": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "unknown"]
+        },
+        "assessments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["owner_type", "owner_id", "condition_id", "facet", "state", "reason"],
+            "properties": {
+              "owner_type": {
+                "type": "string",
+                "enum": ["recipe", "problem_profile"]
+              },
+              "owner_id": {
+                "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+              },
+              "condition_id": {
+                "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+              },
+              "facet": {
+                "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+              },
+              "state": {
+                "type": "string",
+                "enum": ["satisfied", "violated", "unknown"]
+              },
+              "reason": {
+                "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "experiment_contract": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "question",
+        "interventions",
+        "fixed_controls",
+        "expected_evidence",
+        "disconfirmation",
+        "confounders",
+        "evaluation",
+        "data",
+        "resources",
+        "failure_policy",
+        "extensions"
+      ],
+      "properties": {
+        "contract_version": {
+          "type": "integer",
+          "const": 1
+        },
+        "question": {
+          "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+        },
+        "interventions": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+          },
+          "minItems": 1
+        },
+        "fixed_controls": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+          },
+          "minItems": 1
+        },
+        "expected_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+          },
+          "minItems": 1
+        },
+        "disconfirmation": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+          },
+          "minItems": 1
+        },
+        "confounders": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+          }
+        },
+        "evaluation": {
+          "type": "object",
+          "required": [
+            "protocol_id",
+            "protocol_sha256",
+            "argv",
+            "metric",
+            "acceptance_rule",
+            "preflight_evidence"
+          ],
+          "properties": {
+            "protocol_id": {
+              "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/nullable_non_empty_text"
+            },
+            "protocol_sha256": {
+              "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/nullable_sha256"
+            },
+            "argv": {
+              "type": ["array", "null"],
+              "items": {
+                "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+              },
+              "minItems": 1
+            },
+            "metric": {
+              "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/nullable_non_empty_text"
+            },
+            "acceptance_rule": {
+              "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/nullable_non_empty_text"
+            },
+            "preflight_evidence": {
+              "type": ["array", "null"],
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "kind",
+                      "location",
+                      "sha256",
+                      "size_bytes",
+                      "evidence_type",
+                      "purpose",
+                      "source_activity_id"
+                    ],
+                    "properties": {
+                      "kind": {"type": "string", "const": "local_artifact"},
+                      "location": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "sha256": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"},
+                      "size_bytes": {"type": "integer", "minimum": 0},
+                      "evidence_type": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "purpose": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "source_activity_id": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"}
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "required": ["kind", "run_hash"],
+                    "properties": {
+                      "kind": {"type": "string", "const": "aim_run"},
+                      "run_hash": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "role": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "note": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "evidence_type": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "purpose": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+                      "source_activity_id": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"}
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "data": {
+          "type": "object",
+          "required": ["scope_ids", "phase", "candidate_fingerprint", "observation_revision"],
+          "properties": {
+            "scope_ids": {
+              "type": ["array", "null"],
+              "items": {
+                "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+              },
+              "uniqueItems": true
+            },
+            "phase": {
+              "type": ["string", "null"],
+              "enum": ["exploratory", "independent_confirmation", null]
+            },
+            "candidate_fingerprint": {
+              "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/nullable_non_empty_text"
+            },
+            "observation_revision": {
+              "type": ["integer", "null"],
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "resources": {
+          "type": ["array", "null"],
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["kind", "unit", "planned", "verification", "enforcement"],
+            "properties": {
+              "kind": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+              "unit": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"},
+              "planned": {"type": ["number", "null"], "minimum": 0},
+              "verification": {
+                "type": "string",
+                "enum": ["verified", "unverified"]
+              },
+              "enforcement": {
+                "type": "string",
+                "enum": ["executor_enforced", "declared_only", "unknown"]
+              },
+              "actual": {"type": "number", "minimum": 0},
+              "source": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "failure_policy": {
+          "type": ["string", "null"],
+          "enum": ["stop_pending", "continue_independent", null]
+        },
+        "extensions": {
+          "type": "object",
+          "required": ["aimx_recipes"],
+          "properties": {
+            "aimx_recipes": {
+              "type": "object",
+              "required": ["baseline_run", "qualitative_cost"],
+              "properties": {
+                "baseline_run": {
+                  "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/nullable_non_empty_text"
+                },
+                "qualitative_cost": {
+                  "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/cost_profile"
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

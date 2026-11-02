@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:recipe",
+  "title": "Recipe Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "recipe_id",
+    "canonical_name",
+    "aliases",
+    "vocabulary_version",
+    "taxonomy_version",
+    "action_type",
+    "action",
+    "description",
+    "applicability",
+    "preconditions",
+    "hard_constraints",
+    "contraindications",
+    "configuration",
+    "implementation_refs",
+    "expected_effect",
+    "cost_profile"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "recipe"
+    },
+    "recipe_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "canonical_name": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      },
+      "uniqueItems": true
+    },
+    "vocabulary_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "taxonomy_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "data_preparation",
+        "feature_engineering",
+        "model_choice",
+        "training",
+        "validation",
+        "ensemble",
+        "prediction"
+      ]
+    },
+    "action": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "description": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "applicability": {
+      "type": "array",
+      "items": {"$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/condition"}
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/condition"
+      }
+    },
+    "hard_constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/condition"
+      }
+    },
+    "contraindications": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      },
+      "uniqueItems": true
+    },
+    "configuration": {
+      "type": "object"
+    },
+    "implementation_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      },
+      "uniqueItems": true
+    },
+    "expected_effect": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      },
+      "uniqueItems": true
+    },
+    "cost_profile": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/cost_profile"
+    }
+  },
+  "additionalProperties": false
+}

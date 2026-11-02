@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:document",
+  "title": "Document Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "document_id",
+    "source_id",
+    "snapshot_id",
+    "section",
+    "content_sha256",
+    "normalization_version"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "document"
+    },
+    "document_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "source_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "snapshot_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "section": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "content_sha256": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"
+    },
+    "normalization_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "title": {
+      "type": ["string", "null"]
+    }
+  },
+  "additionalProperties": false
+}

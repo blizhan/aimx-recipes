@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "recipe",
+  "recipe_id": "rec:invalid-aggregate-counts",
+  "canonical_name": "Invalid Recipe with Aggregate Counts",
+  "aliases": [],
+  "vocabulary_version": "2.0.0",
+  "taxonomy_version": "2.0.0",
+  "action_type": "feature_engineering",
+  "action": "feature_engineering.lag_features",
+  "description": "Invalid recipe containing authored aggregate evidence total.",
+  "applicability": [],
+  "preconditions": [],
+  "hard_constraints": [],
+  "contraindications": [],
+  "configuration": {},
+  "implementation_refs": [],
+  "expected_effect": [],
+  "cost_profile": {
+    "implementation": "low",
+    "compute": "low"
+  },
+  "support": 42
+}

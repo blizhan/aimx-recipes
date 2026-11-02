@@ -1,0 +1,28 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "attempt",
+  "attempt_id": "att:valid-attempt-01",
+  "problem_id": "prob:tab-forecasting-01",
+  "document_id": "doc:valid-document-01",
+  "recipe_id": null,
+  "raw_method_name": "Standard Scaling",
+  "baseline_method": null,
+  "candidate_method": "Standard Scaler",
+  "configuration": {},
+  "validation_protocol": null,
+  "evaluation_scope": null,
+  "metric_name": null,
+  "metric_direction": null,
+  "baseline_value": null,
+  "candidate_value": null,
+  "reported_delta": null,
+  "joint_change": false,
+  "joint_changes": [],
+  "outcome": "neutral",
+  "confounders": [],
+  "provenance": {
+    "origin": "synthetic",
+    "source_content_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "fixture_id": "fix:valid"
+  }
+}

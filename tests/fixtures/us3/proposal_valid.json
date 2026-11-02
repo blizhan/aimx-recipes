@@ -1,0 +1,89 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "experiment_proposal",
+  "proposal_id": "prop:hourly-lags-suggestion",
+  "profile_id": "prof:tab-forecasting-01",
+  "recipe_id": "rec:lag-features-hourly",
+  "evidence_ids": ["ev:ablation-q1"],
+  "review_status": "requires_lead_review",
+  "match": {
+    "level": "L1",
+    "transfer_risk": "low",
+    "assessments": [
+      {
+        "owner_type": "problem_profile",
+        "owner_id": "prof:tab-forecasting-01",
+        "condition_id": "cond:no-target-leakage",
+        "facet": "validation.target_leakage_allowed",
+        "state": "satisfied",
+        "reason": "Profile prohibits target leakage and lag features do not use future information."
+      },
+      {
+        "owner_type": "problem_profile",
+        "owner_id": "prof:tab-forecasting-01",
+        "condition_id": "cond:future-covariates-present",
+        "facet": "temporal.covariates",
+        "state": "satisfied",
+        "reason": "Future known covariates are present in the profile."
+      },
+      {
+        "owner_type": "recipe",
+        "owner_id": "rec:lag-features-hourly",
+        "condition_id": "cond:rec-no-leakage",
+        "facet": "validation.target_leakage_allowed",
+        "state": "satisfied",
+        "reason": "Lag transformation respects causal horizon."
+      },
+      {
+        "owner_type": "recipe",
+        "owner_id": "rec:lag-features-hourly",
+        "condition_id": "cond:rec-hourly-freq",
+        "facet": "temporal.frequency",
+        "state": "satisfied",
+        "reason": "Series sampling frequency is hourly."
+      }
+    ]
+  },
+  "experiment_contract": {
+    "contract_version": 1,
+    "question": "Does adding hourly autoregressive lags improve demand forecasting accuracy?",
+    "interventions": [
+      "Construct 24h, 48h, and 168h lags"
+    ],
+    "fixed_controls": [
+      "LightGBM baseline configuration and rolling origin splits"
+    ],
+    "expected_evidence": [
+      "Lower RMSE on 24h evaluation window"
+    ],
+    "disconfirmation": [
+      "RMSE increase or no statistically significant change"
+    ],
+    "confounders": [],
+    "evaluation": {
+      "protocol_id": null,
+      "protocol_sha256": null,
+      "argv": null,
+      "metric": null,
+      "acceptance_rule": null,
+      "preflight_evidence": null
+    },
+    "data": {
+      "scope_ids": null,
+      "phase": null,
+      "candidate_fingerprint": null,
+      "observation_revision": null
+    },
+    "resources": null,
+    "failure_policy": null,
+    "extensions": {
+      "aimx_recipes": {
+        "baseline_run": null,
+        "qualitative_cost": {
+          "implementation": "low",
+          "compute": "low"
+        }
+      }
+    }
+  }
+}

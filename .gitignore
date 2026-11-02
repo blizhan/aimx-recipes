@@ -218,3 +218,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# aimx-recipes local data (raw snapshots, frozen extraction, built index)
+data/
+
+# Spec Kit and agent integration state (local only; CONSTITUTION.md and ROADMAP.md are the tracked copies)
+.specify/
+.pi/
+.claude/
+
+# Universal
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp

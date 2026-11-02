@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:source",
+  "title": "Source Entity Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "entity_type",
+    "source_id",
+    "kind",
+    "canonical_ref",
+    "license",
+    "snapshot_id",
+    "content_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/schema_version"
+    },
+    "entity_type": {
+      "type": "string",
+      "const": "source"
+    },
+    "source_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/id"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "writeup",
+        "competition_page",
+        "forum_post",
+        "notebook",
+        "paper",
+        "repository",
+        "openml_run",
+        "local_result",
+        "synthetic"
+      ]
+    },
+    "canonical_ref": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "license": {
+      "type": "object",
+      "required": ["status", "identifier", "attribution"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["permissive", "restricted", "unknown"]
+        },
+        "identifier": {
+          "type": ["string", "null"]
+        },
+        "attribution": {
+          "type": ["string", "null"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "snapshot_id": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+    },
+    "content_sha256": {
+      "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/sha256"
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "mirrors": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:aimx-recipes:schema:2.0.0:common#/$defs/non_empty_text"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

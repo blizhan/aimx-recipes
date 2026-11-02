@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "evidence",
+  "evidence_id": "ev:valid-evidence-01",
+  "attempt_id": "att:valid-attempt-01",
+  "document_id": "doc:valid-document-01",
+  "type": "used_in_solution",
+  "outcome": "positive",
+  "quote": "Standard scaling was applied to all numeric columns.",
+  "char_start": 0,
+  "char_end": 52,
+  "uncertainty": [],
+  "comparison": null,
+  "provenance": {
+    "origin": "synthetic",
+    "source_content_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "fixture_id": "fix:valid"
+  }
+}

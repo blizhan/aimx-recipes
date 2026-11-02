@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aimx-recipes:schema:2.0.0:action-taxonomy",
+  "title": "Action Taxonomy Definition Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "taxonomy_version",
+    "groups"
+  ],
+  "properties": {
+    "$schema": {"const": "https://json-schema.org/draft/2020-12/schema"},
+    "$id": {"const": "urn:aimx-recipes:schema:2.0.0:action-taxonomy-data"},
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "taxonomy_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "groups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["leaves"],
+        "properties": {
+          "leaves": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

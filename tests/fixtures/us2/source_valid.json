@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "entity_type": "source",
+  "source_id": "src:valid-source-01",
+  "kind": "writeup",
+  "canonical_ref": "https://example.com/source1",
+  "license": {
+    "status": "permissive",
+    "identifier": "MIT",
+    "attribution": "Example Author"
+  },
+  "snapshot_id": "snap:001",
+  "content_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "published_at": "2026-01-01T12:00:00Z",
+  "mirrors": ["https://mirror.example.com/source1"]
+}
