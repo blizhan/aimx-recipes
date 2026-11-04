@@ -1,11 +1,9 @@
 """Tests for three-run reproducibility, byte-level determinism, and input immutability."""
 
 import copy
-import pytest
 from aimx_recipes.diagnostics import render_text
 from aimx_recipes.models import ValidationContext
 from aimx_recipes.contextual import validate_bundle
-from aimx_recipes.validation import validate_record
 
 
 def test_three_run_byte_determinism_and_input_immutability(load_fixture, fixtures_dir):

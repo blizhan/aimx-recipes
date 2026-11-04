@@ -100,15 +100,19 @@ Parsing notes: `ForumMessages.csv` needs a raised `max_line_size`. Dates use
 
 ### 3.3 P0 Subset
 
-A first tag filter (`tabular` or `time series analysis`, excluding `image`,
-`computer vision`, `text`, `nlp`) gives:
+Under Spec 002 (C-16 rule), all valid Meta Kaggle writeups are ingested into
+the snapshot, and P0 membership is evaluated as an immutable metadata layer:
 
-| Competitions | Writeups | Characters | ≈ Tokens |
-| --- | --- | --- | --- |
-| 179 | 1,582 | 7.67M | 1.9M |
+1. **Explicit Review List** (`curation/kaggle/p0-reviewed.yaml`): highest precedence manual include/exclude decisions.
+2. **Tag Classification**: Tag-in (tags `14101` tabular, `13209` time series analysis) unless overridden by modality tags (`14102` image, `13207` computer vision, `14104` text, `13204` nlp, `16072` audio, `14105` speech).
+3. **Heuristic Candidate Signals (S1–S5)**: Metric name/abbreviation, keyword hits, and structured data heuristics identify candidate tabular competitions for human curatorial review.
+4. **Default Exclude**: All untagged, unreviewed competitions without candidate review remain excluded.
 
-The filter misses older competitions that were never tagged. Spec 002 decides
-the final rule, for example adding metric-based or manual inclusion (Q2).
+Corrected reference dump figures (2026-11-01 Meta Kaggle):
+- **Competitions**: 618 total (178 tag-in, 173 modality-excluded, 267 default-excluded).
+- **Writeup References**: 6,276 total (6,272 ingested, 1 whitespace duplicate mirror, 3 empty text exclusions).
+- **Short Writeups**: 107 writeups (< 200 characters).
+- **Heuristic Candidates**: 101 candidates awaiting review in `candidate-report.md`.
 
 At this size, full batch extraction of the subset is cheap. The design
 therefore uses batch extraction of the whole P0 subset instead of the

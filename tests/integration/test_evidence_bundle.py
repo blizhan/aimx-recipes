@@ -1,9 +1,6 @@
 """Integration tests for evidence bundles, reference resolution, and quote verification."""
 
 import copy
-import hashlib
-from pathlib import Path
-import pytest
 from aimx_recipes.models import ValidationContext
 from aimx_recipes.contextual import validate_bundle
 from aimx_recipes.validation import validate_record
@@ -40,7 +37,9 @@ def test_missing_document_text_reports_incomplete(load_fixture):
 def test_document_hash_mismatch_fails(load_fixture):
     records = load_fixture("us2/evidence_bundle_valid.json")
     # Wrong text with different hash
-    ctx = ValidationContext(document_texts={"doc:us2-body": "Different document body text."})
+    ctx = ValidationContext(
+        document_texts={"doc:us2-body": "Different document body text."}
+    )
     res = validate_bundle(records, context=ctx)
 
     assert res.status == "invalid"
@@ -102,7 +101,9 @@ def test_controlled_ablation_requires_comparison_within_quote():
     }
     res = validate_record(ev)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "comparison" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "comparison" in d.check for d in res.diagnostics
+    )
 
 
 def test_attempt_scope_and_metric_conditional_requirements():

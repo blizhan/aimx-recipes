@@ -75,7 +75,21 @@ assert bundle_result.contextual_complete is True
 - **Incomplete 与 Error 判定**：若缺失上下文数据（如 `ValidationContext` 中未提供对应文档全文），结果为 `status="incomplete"`。任何结构或引用错误均占优，判定为 `status="invalid"`。
 - **治理边界**：实验提案必须保持 `review_status="requires_lead_review"`。验证器绝不修改或补充字段，不授予运行准入，亦不读写 aimx 的任何状态。
 
-## 拟议 CLI
+## CLI
+
+### Meta Kaggle 数据摄取
+
+`ingest kaggle` 命令摄取本地 Meta Kaggle 转储数据，构建不可变 Parquet 快照，归一化解决方案文档，并评估 P0 表格竞赛成员资格：
+
+```bash
+aimx-recipes ingest kaggle --meta-kaggle ~/data/kaggle/meta-kaggle --label 2026-11-01 --json
+```
+
+- **仅存本地边界**：原始文本与完整 writeup 仅保存在本地未跟踪的 `data/raw/kaggle/<snapshot_id>/` 目录下，绝不提交至版本库；版本库仅跟踪规则元数据与 Schema。
+- **Contract 记录**：生成符合 001 规范的 `records/sources.jsonl`、`records/documents.jsonl` 和 `records/problems.jsonl`。
+- **P0 评审闭环**：未评审候选竞赛自动生成于 `candidate-report.md`；评审人通过编辑 `curation/kaggle/p0-reviewed.yaml` 并重新运行摄取（自动复用现有快照而不重复归一化）完成评审。
+
+### 检索与查询（拟议）
 
 ```bash
 aimx-recipes match --problem problem.json --json        # 候选 + 匹配 / 未知 / 违反的 facet

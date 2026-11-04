@@ -1,0 +1,15 @@
+"Id","ForumTopicId","PostUserId","PostDate","ReplyToForumMessageId","Message","RawMarkdown","Medal","MedalAwardDate"
+"1001","1001","","04/16/2024 14:30:00","","<p>HTML 1001</p>","UNIQUE_MARKER_1001_MD
+First place solution overview and architecture details.
+We used LightGBM and XGBoost with target encoding, frequency encoding, and out-of-fold predictions.
+Cross-validation matched leaderboard perfectly across all folds with high stability.","",""
+"1002","1002","","05/02/2024 09:15:00","","<p>HTML 1002</p>","  UNIQUE_MARKER_1001_MD 
+ First  place  solution  overview  and  architecture  details. 
+ We  used  LightGBM  and  XGBoost  with  target  encoding,  frequency  encoding,  and  out-of-fold  predictions. 
+ Cross-validation  matched  leaderboard  perfectly  across  all  folds  with  high  stability.  ","",""
+"1003","1003","","06/02/2024 18:00:00","","<p>UNIQUE_MARKER_1003_HTML</p>
+<p>Third place writeup in HTML format with detailed features and cross-validation setup.</p>
+<p>Our ensemble achieved strong performance on the test dataset using neural network representations.</p>","","",""
+"1004","1004","","12/26/2024 11:20:00","","<p>HTML 1004</p>","UNIQUE_MARKER_1004_SHORT: 1st place approach using gradient boosted trees and feature engineering. Score: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX","",""
+"1005","1005","","08/02/2024 16:45:00","","<p>HTML 1005</p>","UNIQUE_MARKER_1005_200: Solution with non-ASCII: café résumé ★ 中文. Ensembling gave top score. YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY","",""
+"1009","1009","","04/17/2024 10:00:00","","","","",""

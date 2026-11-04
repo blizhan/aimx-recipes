@@ -1,0 +1,231 @@
+rule_version: 1.0.0
+tag_rule:
+  include:
+  - id: '14101'
+    name: tabular
+  - id: '13209'
+    name: time series analysis
+  modality_exclude:
+  - id: '14102'
+    name: image
+  - id: '13207'
+    name: computer vision
+  - id: '14104'
+    name: text
+  - id: '13204'
+    name: nlp
+  - id: '16072'
+    name: audio
+  - id: '14105'
+    name: video
+heuristic:
+  pool:
+  - other_tags
+  - untagged
+  candidate: not S5 and S1 and S3 and (S2 or S4)
+  signals:
+    S1:
+      metric_families:
+      - ^(RMSE|RMSLE|MAE|MSE|MAPE|SMAPE|R2Score|RValue|NormalizedGini|NormalizedWeightedGini|LogLoss|MulticlassLoss|MulticlassLossOld|WeightedMulticlassLoss|MeanColumnwiseLogLoss|WeightedMeanColumnwiseLogLoss|AUC|MCAUC|WeightedAUC|CategorizationAccuracy|WeightedCategorizationAccuracy|FScoreMacro|FScoreMicro|FScoreBetaMicro|F_\{Beta\}
+        \(deprecated\)|FScore_1 \(deprecated\)|MCRMSE|MCRMSLE|MWCRMSE|MeanColumnwiseMAE|CRPS|WeightedPinballLoss|WeightedRowwisePinballLoss|M5_WRMSSE|SpearmanR|MeanPearson|PearsonCorrelationCoefficient|QuadraticWeightedKappa|MatthewsCorrelationCoefficient|NDCG@\{K\}|MAP@k|MAP@\{K\}|MAP@\{K\}_OLD|WeightedRecall@\{K\}|ZillowMAE|WMAE|NWRMSLE|RootMeanSquarePercentageError|GroupMeanLogMAE|PercentCorrectVisits|AverageAmongTopP|HiggsBosonApproximateMedianSignificance|TwoSigmaNews|JaneStreetPnl|AmexGiniAndPercentageCaptureX|LaplaceLogLikelihood|MCAP|WRRMSE)$
+      name_patterns:
+      - (?i)^(mean squared error|mean absolute error|mean squared log error|r2 score|roc
+        auc score|accuracy score|balanced accuracy score|cohen kappa score|log loss|matthews
+        corrcoef|f1 score|mean absolute percentage error|sklearn_roc_auc_score|sklearn_average_precision_score|kullback
+        leibler divergence|smape_plus_1)$|sharpe|gini|concordance|commodity prediction|march
+        mania|nfl_|polymer|wildfire|zero-mean r2|mean weighted columnwise aucroc
+    S2:
+      file_patterns:
+      - \.(csv|parquet|feather|tsv|xlsx?)\b
+      media_patterns:
+      - \.(jpe?g|png|tiff?|bmp|dcm|dicom|nii(\.gz)?|svs|wav|mp3|flac|ogg|aiff?|mp4|avi|mov|mkv|tfrecords?)\b
+      strip_patterns:
+      - <img[^>]*>
+      - '!\[[^\]]*\]\([^)]*\)'
+      - https?://\S+
+    S3:
+      media_patterns:
+      - \.(jpe?g|png|tiff?|bmp|dcm|dicom|nii(\.gz)?|svs|wav|mp3|flac|ogg|aiff?|mp4|avi|mov|mkv|tfrecords?)\b
+      keywords:
+        img: \bimages?\b|\bphotos?\b|\bpixels?\b|\bx-rays?\b|\bmri\b|\bct scans?\b|\bmicroscop\w*|\bpictures?\b
+        aud: \baudio\b|\bsounds?\b|\brecordings?\b|\bspectrograms?\b|\beeg\b|\becg\b|\bmeg\b|\bwaveforms?\b|\bspeech\b
+        vid: \bvideos?\b|\bvideo frames?\b
+        txt: \b(essays?|tweets?|sentences?|articles?|reviews?|comments?|corpus|abstracts?|wikipedia|text|prompts?)\b|\bnlp\b|\bllms?\b
+      keyword_threshold: '6'
+    S4:
+      positive_tag_ids:
+      - id: '2603'
+        name: football
+      - id: '2606'
+        name: basketball
+      - id: '2614'
+        name: golf
+      - id: '4141'
+        name: sports
+      - id: '4202'
+        name: healthcare
+      - id: '6603'
+        name: categorical
+      - id: '8317'
+        name: housing
+      - id: '11102'
+        name: business
+      - id: '11108'
+        name: finance
+      - id: '11122'
+        name: real estate
+      - id: '11129'
+        name: banking
+      - id: '12016'
+        name: energy
+      - id: '12027'
+        name: marketing
+      - id: '13302'
+        name: classification
+      - id: '13311'
+        name: recommender systems
+      - id: '13404'
+        name: logistic regression
+      - id: '13405'
+        name: linear regression
+      - id: '14201'
+        name: binary classification
+      - id: '14202'
+        name: multiclass classification
+      - id: '14203'
+        name: regression
+      - id: '16113'
+        name: food
+      - id: '16281'
+        name: retail and shopping
+      - id: '16369'
+        name: insurance
+      - id: '16371'
+        name: investing
+      - id: '16373'
+        name: currencies and foreign exchange
+      - id: '16575'
+        name: covid19
+      - id: '16690'
+        name: tabular classification
+      negative_tag_ids:
+      - id: '2107'
+        name: languages
+      - id: '2206'
+        name: literature
+      - id: '11208'
+        name: linguistics
+      - id: '13203'
+        name: signal processing
+      - id: '13205'
+        name: text mining
+      - id: '13310'
+        name: deep learning
+      - id: '13313'
+        name: reinforcement learning
+      - id: '13407'
+        name: neural networks
+      - id: '14211'
+        name: adversarial learning
+      - id: '15002'
+        name: optimization
+      - id: '16151'
+        name: simulations
+      - id: '16574'
+        name: tpu
+      - id: '16668'
+        name: pre-trained model
+      - id: '16685'
+        name: audio event classification
+      - id: '16686'
+        name: image classification
+      - id: '16691'
+        name: text classification
+      - id: '16696'
+        name: text generation
+      - id: '16706'
+        name: image text recognition
+      - id: '16717'
+        name: image segmentation
+      - id: '16723'
+        name: text conversation
+      - id: '17075'
+        name: video classification
+      - id: '17081'
+        name: multimodal
+      - id: '17143'
+        name: segmentation
+      - id: '17149'
+        name: graph neural network
+      - id: '17193'
+        name: general knowledge and reasoning
+    S5:
+      negative_metric_patterns:
+      - (?i)santa|^(cabt|chess|crawl|football|halite|hungry_geese|kaggriculture|kore_fleets|lux_ai_2021|lux_ai_s2|lux_ai_s3|mab|orbit_wars|rps|llm_20_questions)$|dice|intersectionoverunion|objectdetection|objdetection|openimages|visualrelations|googleglobalap|meanbesterroratk|levenshtein|bleu|word
+        error rate|postprocessorkernel|abstraction and reasoning|code golf|neurogolf|flag_metric|defcon|tm-score|birdclef|vesuvius|svg
+        image|image fidelity|helmet|autodriving|lyft3d|imc20|image ?matching|maa|nemotron|agents
+        security|k prize|llmycpta|unlearn|aimo|f_beta|tlal|mdc_global|cmap|event detection|cryoet|zebrafish|biophysics|surface
+        dice|aneurysm|recodai|tpugraphs|ariel|darkworlds|facebookcircles|ge-fq2|causeeffect|indoorlocalization|smartphonedecimeter|trackml
+      negative_tag_ids:
+      - id: '2107'
+        name: languages
+      - id: '2206'
+        name: literature
+      - id: '11208'
+        name: linguistics
+      - id: '13203'
+        name: signal processing
+      - id: '13205'
+        name: text mining
+      - id: '13310'
+        name: deep learning
+      - id: '13313'
+        name: reinforcement learning
+      - id: '13407'
+        name: neural networks
+      - id: '14211'
+        name: adversarial learning
+      - id: '15002'
+        name: optimization
+      - id: '16151'
+        name: simulations
+      - id: '16574'
+        name: tpu
+      - id: '16668'
+        name: pre-trained model
+      - id: '16685'
+        name: audio event classification
+      - id: '16686'
+        name: image classification
+      - id: '16691'
+        name: text classification
+      - id: '16696'
+        name: text generation
+      - id: '16706'
+        name: image text recognition
+      - id: '16717'
+        name: image segmentation
+      - id: '16723'
+        name: text conversation
+      - id: '17075'
+        name: video classification
+      - id: '17081'
+        name: multimodal
+      - id: '17143'
+        name: segmentation
+      - id: '17149'
+        name: graph neural network
+      - id: '17193'
+        name: general knowledge and reasoning
+  review_flags:
+    bioseq:
+      pattern: \bsmiles\b|\brna\b|\bdna\b|\bprotein sequences?\b|\bamino acids?\b|\bnucleotides?\b
+      threshold: '2'
+    non_english:
+      ascii_ratio_threshold: '0.7'
+    thin_dataset_desc:
+      min_length: '300'
+    signal:
+      audio_keyword: aud
+      threshold: '3'
+      signal_processing_tag_id: '13203'

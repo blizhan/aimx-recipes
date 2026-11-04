@@ -19,7 +19,9 @@ def escape_pointer(parts: Sequence[str | int]) -> str:
     return "/" + "/".join(escaped)
 
 
-def sort_and_deduplicate_diagnostics(diagnostics: Sequence[Diagnostic]) -> list[Diagnostic]:
+def sort_and_deduplicate_diagnostics(
+    diagnostics: Sequence[Diagnostic],
+) -> list[Diagnostic]:
     """Sort diagnostics by documented key and collapse exact duplicates."""
     seen: set[tuple[str | None, str | None, int, str, str, str, str, str]] = set()
     unique_diags: list[Diagnostic] = []
@@ -85,7 +87,8 @@ def _display(value: str) -> str:
     """Escape control, formatting, and surrogate characters in dynamic fields."""
     return "".join(
         char.encode("unicode_escape").decode("ascii")
-        if unicodedata.category(char).startswith("C") else char
+        if unicodedata.category(char).startswith("C")
+        else char
         for char in value
     )
 

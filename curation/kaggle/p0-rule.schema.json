@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "P0Rule",
+  "description": "Schema for P0 tag rules, heuristic signals, and candidate expression.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["rule_version", "tag_rule", "heuristic"],
+  "properties": {
+    "rule_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "tag_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["include", "modality_exclude"],
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "name"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[0-9]+$" },
+              "name": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "modality_exclude": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "name"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[0-9]+$" },
+              "name": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "heuristic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pool", "candidate", "signals", "review_flags"],
+      "properties": {
+        "pool": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["other_tags", "untagged"] }
+        },
+        "candidate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signals": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["S1", "S2", "S3", "S4", "S5"],
+          "properties": {
+            "S1": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["metric_families", "name_patterns"],
+              "properties": {
+                "metric_families": { "type": "array", "items": { "type": "string" } },
+                "name_patterns": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "S2": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["file_patterns", "media_patterns", "strip_patterns"],
+              "properties": {
+                "file_patterns": { "type": "array", "items": { "type": "string" } },
+                "media_patterns": { "type": "array", "items": { "type": "string" } },
+                "strip_patterns": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "S3": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["media_patterns", "keywords", "keyword_threshold"],
+              "properties": {
+                "media_patterns": { "type": "array", "items": { "type": "string" } },
+                "keywords": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                },
+                "keyword_threshold": { "type": "string", "pattern": "^[0-9]+$" }
+              }
+            },
+            "S4": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["positive_tag_ids", "negative_tag_ids"],
+              "properties": {
+                "positive_tag_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["id", "name"],
+                    "properties": {
+                      "id": { "type": "string", "pattern": "^[0-9]+$" },
+                      "name": { "type": "string" }
+                    }
+                  }
+                },
+                "negative_tag_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["id", "name"],
+                    "properties": {
+                      "id": { "type": "string", "pattern": "^[0-9]+$" },
+                      "name": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            },
+            "S5": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["negative_metric_patterns", "negative_tag_ids"],
+              "properties": {
+                "negative_metric_patterns": { "type": "array", "items": { "type": "string" } },
+                "negative_tag_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["id", "name"],
+                    "properties": {
+                      "id": { "type": "string", "pattern": "^[0-9]+$" },
+                      "name": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "review_flags": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bioseq", "non_english", "thin_dataset_desc", "signal"],
+          "properties": {
+            "bioseq": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["pattern", "threshold"],
+              "properties": {
+                "pattern": { "type": "string" },
+                "threshold": { "type": "string", "pattern": "^[0-9]+$" }
+              }
+            },
+            "non_english": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["ascii_ratio_threshold"],
+              "properties": {
+                "ascii_ratio_threshold": { "type": "string" }
+              }
+            },
+            "thin_dataset_desc": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["min_length"],
+              "properties": {
+                "min_length": { "type": "string", "pattern": "^[0-9]+$" }
+              }
+            },
+            "signal": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["audio_keyword", "threshold", "signal_processing_tag_id"],
+              "properties": {
+                "audio_keyword": { "type": "string" },
+                "threshold": { "type": "string", "pattern": "^[0-9]+$" },
+                "signal_processing_tag_id": { "type": "string", "pattern": "^[0-9]+$" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

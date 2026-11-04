@@ -1,0 +1,23 @@
+{"case": "rerun_state", "exit": 0, "membership": "existing", "snapshot": "existing"}
+{"case": "corrupt_membership", "errors": [{"code": "snapshot_conflict", "message": "Corrupt or unreadable parquet file in membership: 'membership.parquet'"}], "exit": 1, "status": "error"}
+{"case": "invalid_review_leaves_snapshot", "errors": [{"code": "reviewed_list_unknown_competition", "file": "p0-reviewed.yaml", "message": "Competition id '999999' in reviewed list is not found in snapshot", "record_id": "999999"}], "exit": 1, "manifests": 0}
+{"case": "temporary_files", "exit": 0, "outside_raw": true, "paths": []}
+{"a_path": "candidate-report.md", "b_path": "candidate-report.md", "case": "fresh_manifest_determinism", "manifests_equal": true, "same_membership_id": true}
+{"case": "apostrophe_input_path", "errors": [], "exit": 0, "status": "ok"}
+{"case": "missing_modality_tag", "errors": [{"code": "csv_malformed", "column": "TagId", "file": "CompetitionTags.csv", "message": "Dangling TagId '14102' in 'CompetitionTags.csv' missing from 'Tags.csv'", "record_id": "14102"}], "exit": 1}
+{"case": "bad_date_diagnostic", "errors": [{"code": "date_unparseable", "column": "PostDate", "file": "ForumMessages.csv", "message": "Failed to parse date in column 'PostDate'", "record_id": "1001"}], "exit": 1}
+{"case": "missing_values", "higher_is_better": null, "published_at": null}
+{"case": "ignored_rule_fields", "custom_metric_signals": ["S1", "S2", "S3"], "negative_tag_signals": ["S1", "S2", "S3", "S5"]}
+{"accepted": false, "case": "blank_review_accepted", "error_code": "reviewed_list_invalid", "error_message": "Reviewed list schema validation failed: '   ' does not match '\\\\S'"}
+{"case": "consumer_membership_api", "membership_id": "p0-5620f19fe396c2e8", "success": true}
+{"scratch_root": "/tmp/aimx-recipes-002-fix-113ncux7"}
+{"all_removed": true, "case": "prior_probe_cleanup"}
+{"case": "numeric_diagnostic", "errors": [{"code": "csv_malformed", "column": "CompetitionId", "file": "Teams.csv", "message": "Invalid integer in column 'CompetitionId' of 'Teams.csv'", "record_id": "1001"}], "exit": 1, "marker_leaked": false}
+{"case": "missing_output_omitted_from_manifest", "exit": 1, "membership": null, "missing_membership_file": true, "status": "error"}
+{"case": "membership_write_failure", "errors": [{"code": "write_failed", "message": "File operation or disk write failed"}], "exit": 1, "remaining_manifests": 0}
+{"case": "actual_ingest_session_settings", "exits": [0, 0], "sessions": [{"actual_temp_directory": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/.tmp-resolve-eadbb0783a1244bb84009c6edd4869d5", "explicit_temp_dir": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/.tmp-resolve-eadbb0783a1244bb84009c6edd4869d5"}, {"actual_temp_directory": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/.tmp-091711d1a20a4992ab413b617d12216a/.duckdb_temp", "explicit_temp_dir": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/.tmp-091711d1a20a4992ab413b617d12216a/.duckdb_temp"}, {"actual_temp_directory": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/.tmp-7555b76c93754479b073580067af7374/.duckdb_temp", "explicit_temp_dir": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/.tmp-7555b76c93754479b073580067af7374/.duckdb_temp"}, {"actual_temp_directory": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/.tmp-verify-5aadc4dc64e8439881307c2c0c9ae4a4", "explicit_temp_dir": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/.tmp-verify-5aadc4dc64e8439881307c2c0c9ae4a4"}, {"actual_temp_directory": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/p0-5620f19fe396c2e8/.tmp-memverify-0ed1d08804664cad999d2310431b1665", "explicit_temp_dir": "/tmp/aimx-recipes-002-rereview-zydndm3e/sessions/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/p0-5620f19fe396c2e8/.tmp-memverify-0ed1d08804664cad999d2310431b1665"}]}
+{"bytes": 0, "case": "default_session_synthetic_spill", "outside_data_raw_files": [], "query_error": "OutOfMemoryException"}
+{"case": "independent_all_file_bytes", "equal": true, "file_count": 11}
+{"case": "existing_tag_with_missing_name", "errors": [], "exit": 0}
+{"case": "installed_layout_unrelated_lock", "recorded_unrelated_lock": false, "simulated_layout": true}
+{"case": "new_probe_cleanup", "removed": true}

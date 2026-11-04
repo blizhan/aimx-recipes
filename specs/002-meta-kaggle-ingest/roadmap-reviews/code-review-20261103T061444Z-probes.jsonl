@@ -1,0 +1,13 @@
+{"case": "rerun_state", "exit": 0, "membership": "created", "snapshot": "existing"}
+{"case": "corrupt_membership", "exit": 0, "status": "ok", "warnings": [{"code": "p0_provisional", "message": "1 heuristic candidates are unreviewed"}]}
+{"case": "invalid_review_leaves_snapshot", "errors": [{"code": "reviewed_list_unknown_competition", "file": "p0-reviewed.yaml", "message": "Competition id '999999' in reviewed list is not found in snapshot", "record_id": "999999"}], "exit": 1, "manifests": 1}
+{"case": "temporary_files", "exit": 0, "outside_raw": true, "paths": ["/tmp/tmp_ot7kswn", "/tmp/tmp7ght0_0d", "/tmp/tmp4xc8zwv8", "/tmp/tmpbz6yu0co", "/tmp/tmp4c511z_c"]}
+{"a_path": "/tmp/aimx-recipes-002-review-dnyd47rt/a/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/p0-5620f19fe396c2e8/candidate-report.md", "b_path": "/tmp/aimx-recipes-002-review-dnyd47rt/b/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/p0-5620f19fe396c2e8/candidate-report.md", "case": "fresh_manifest_determinism", "manifests_equal": false, "same_membership_id": true}
+{"case": "apostrophe_input_path", "errors": [{"code": "csv_malformed", "file": "Competitions.csv", "line": 10, "message": "CSV parse error in 'Competitions.csv' at line 10"}], "exit": 1}
+{"case": "missing_modality_tag", "errors": [], "exit": 0, "memberships": [[101, "tag_in", "in"], [102, "tag_in", "in"], [103, "other_tags", "out"], [104, "untagged", "out"], [105, "other_tags", "out"]]}
+{"case": "bad_date_diagnostic", "errors": [{"code": "date_unparseable", "message": "Failed to parse Kaggle date: 'PRIVATE_BODY_MARKER'"}], "exit": 1}
+{"case": "missing_values", "higher_is_better": false, "published_at": "1970-01-01T00:00:00Z"}
+{"case": "ignored_rule_fields", "custom_metric_signals": ["S2", "S3"], "negative_tag_signals": ["S1", "S2", "S3"]}
+{"case": "blank_review_accepted", "reason": "   ", "reviewer": "   "}
+{"case": "consumer_membership_api", "error": "membership_id() missing 2 required positional arguments: 'list_sha256' and 'snapshot_id_val'"}
+{"scratch_root": "/tmp/aimx-recipes-002-review-dnyd47rt"}

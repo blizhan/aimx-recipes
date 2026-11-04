@@ -1,8 +1,12 @@
 """Tests for diagnostic construction, sorting, JSON Pointer escaping, error-over-incomplete precedence, and text rendering."""
 
-import pytest
-from aimx_recipes.models import Diagnostic, ValidationResult
-from aimx_recipes.diagnostics import escape_pointer, render_text, sort_and_deduplicate_diagnostics, build_validation_result
+from aimx_recipes.models import Diagnostic
+from aimx_recipes.diagnostics import (
+    escape_pointer,
+    render_text,
+    sort_and_deduplicate_diagnostics,
+    build_validation_result,
+)
 
 
 def test_escape_pointer():

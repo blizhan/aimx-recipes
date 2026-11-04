@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import json
-from typing import Any, Literal, Mapping, NotRequired, Sequence, TypedDict
+from typing import Any, Literal, Mapping, NotRequired, TypedDict
 
 JSONValue = Any
 

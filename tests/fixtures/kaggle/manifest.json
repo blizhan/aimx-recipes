@@ -1,0 +1,183 @@
+{
+  "manifest_version": "1.0.0",
+  "counts": {
+    "competitions": 5,
+    "writeup_refs": 9,
+    "writeups_ingested": 4,
+    "writeup_mirrors": 1,
+    "writeups_excluded": {
+      "topic_not_found": 1,
+      "first_message_missing": 1,
+      "message_not_found": 1,
+      "empty_text": 1
+    },
+    "writeups_short": 1,
+    "tag_classes": {
+      "tag_in": 1,
+      "modality_excluded": 1,
+      "other_tags": 2,
+      "untagged": 1
+    },
+    "candidates": 1,
+    "unreviewed": 1
+  },
+  "cases": {
+    "kaggle_writeup_1001": {
+      "topic_id": 1001,
+      "competition_id": 101,
+      "disposition": "ingested",
+      "body_format": "markdown",
+      "is_short": false,
+      "char_count": 265,
+      "marker": "UNIQUE_MARKER_1001_MD",
+      "is_canonical": true,
+      "mirror_of": null
+    },
+    "kaggle_writeup_1002": {
+      "topic_id": 1002,
+      "competition_id": 102,
+      "disposition": "mirror",
+      "body_format": "markdown",
+      "is_short": false,
+      "char_count": 302,
+      "marker": "UNIQUE_MARKER_1001_MD",
+      "is_canonical": false,
+      "mirror_of": 1001
+    },
+    "kaggle_writeup_1003": {
+      "topic_id": 1003,
+      "competition_id": 103,
+      "disposition": "ingested",
+      "body_format": "html",
+      "is_short": false,
+      "char_count": 231,
+      "marker": "UNIQUE_MARKER_1003_HTML",
+      "is_canonical": true,
+      "mirror_of": null
+    },
+    "kaggle_writeup_1004": {
+      "topic_id": 1004,
+      "competition_id": 104,
+      "disposition": "ingested",
+      "body_format": "markdown",
+      "is_short": true,
+      "char_count": 199,
+      "marker": "UNIQUE_MARKER_1004_SHORT",
+      "is_canonical": true,
+      "mirror_of": null
+    },
+    "kaggle_writeup_1005": {
+      "topic_id": 1005,
+      "competition_id": 105,
+      "disposition": "ingested",
+      "body_format": "markdown",
+      "is_short": false,
+      "char_count": 200,
+      "marker": "UNIQUE_MARKER_1005_200",
+      "is_canonical": true,
+      "mirror_of": null
+    },
+    "kaggle_writeup_9999": {
+      "topic_id": 9999,
+      "competition_id": 101,
+      "disposition": "excluded",
+      "exclusion_reason": "topic_not_found"
+    },
+    "kaggle_writeup_1007": {
+      "topic_id": 1007,
+      "competition_id": 101,
+      "disposition": "excluded",
+      "exclusion_reason": "first_message_missing"
+    },
+    "kaggle_writeup_1008": {
+      "topic_id": 1008,
+      "competition_id": 101,
+      "disposition": "excluded",
+      "exclusion_reason": "message_not_found"
+    },
+    "kaggle_writeup_1009": {
+      "topic_id": 1009,
+      "competition_id": 101,
+      "disposition": "excluded",
+      "exclusion_reason": "empty_text"
+    },
+    "kaggle_competition_101": {
+      "competition_id": 101,
+      "slug": "comp-101-tag-in",
+      "tag_class": "tag_in",
+      "p0_default": "in",
+      "deciding_rule": "tag",
+      "has_overview": true,
+      "has_metric_desc": true,
+      "has_dataset_desc": true,
+      "metric_label": "LogLoss",
+      "higher_is_better": false,
+      "medal": "gold",
+      "public_rank": 1,
+      "private_rank": 1
+    },
+    "kaggle_competition_102": {
+      "competition_id": 102,
+      "slug": "comp-102-modality",
+      "tag_class": "modality_excluded",
+      "p0_default": "out",
+      "deciding_rule": "tag",
+      "has_overview": true,
+      "has_metric_desc": true,
+      "has_dataset_desc": true,
+      "metric_label": "AUC",
+      "higher_is_better": true,
+      "medal": "silver",
+      "public_rank": 2,
+      "private_rank": 2
+    },
+    "kaggle_competition_103": {
+      "competition_id": 103,
+      "slug": "comp-103-candidate",
+      "tag_class": "other_tags",
+      "p0_default": "out",
+      "deciding_rule": "default_exclude",
+      "heuristic_candidate": true,
+      "has_overview": true,
+      "has_metric_desc": true,
+      "has_dataset_desc": true,
+      "metric_label": "RMSE",
+      "higher_is_better": false,
+      "medal": "bronze",
+      "public_rank": 3,
+      "private_rank": 3
+    },
+    "kaggle_competition_104": {
+      "competition_id": 104,
+      "slug": "comp-104-hard-negative",
+      "tag_class": "untagged",
+      "p0_default": "out",
+      "deciding_rule": "default_exclude",
+      "heuristic_candidate": false,
+      "has_overview": false,
+      "has_metric_desc": true,
+      "has_dataset_desc": true,
+      "metric_label": "Santa Optimization Metric",
+      "higher_is_better": false,
+      "medal": null,
+      "public_rank": null,
+      "private_rank": null
+    },
+    "kaggle_competition_105": {
+      "competition_id": 105,
+      "slug": "comp-105-borderline",
+      "tag_class": "other_tags",
+      "p0_default": "out",
+      "deciding_rule": "default_exclude",
+      "heuristic_candidate": false,
+      "has_overview": true,
+      "has_metric_desc": false,
+      "has_dataset_desc": false,
+      "metric_label": "AUC",
+      "higher_is_better": true,
+      "medal": null,
+      "public_rank": 5,
+      "private_rank": 5
+    }
+  }
+}

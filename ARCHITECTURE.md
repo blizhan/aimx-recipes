@@ -215,9 +215,14 @@ The Meta Kaggle adapter resolves writeups through
 `Teams.WriteUpForumTopicId → ForumTopics.FirstForumMessageId → ForumMessages`.
 It joins competition context (overview, evaluation description, dataset
 description, metric, dates, host segment, tags) and team outcome (medal,
-public/private rank). It then selects the P0 subset and writes Parquet with a
-manifest of input file hashes and row counts. See
-[DATA_SOURCES](docs/DATA_SOURCES.md).
+public/private rank).
+
+All valid writeups are ingested into immutable snapshot directories under
+`data/raw/kaggle/<snapshot_id>/`. P0 tabular membership is not used to discard
+writeups at ingest time; instead, it is computed as a deterministic membership
+layer under `membership/<membership_id>/` with an explainable `p0` flag and
+decision rule for every competition. See [raw-snapshot.md](specs/002-meta-kaggle-ingest/contracts/raw-snapshot.md)
+and [DATA_SOURCES](docs/DATA_SOURCES.md).
 
 ### 4.2 Build
 

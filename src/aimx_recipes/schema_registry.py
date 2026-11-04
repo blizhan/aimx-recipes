@@ -8,7 +8,6 @@ from importlib.resources.abc import Traversable
 from typing import Any
 from jsonschema import Draft202012Validator, FormatChecker, validators
 from referencing import Registry, Resource
-from referencing.exceptions import NoSuchResource
 from referencing.jsonschema import DRAFT202012
 
 SUPPORTED_SCHEMA_VERSIONS = frozenset(["2.0.0"])
@@ -19,14 +18,12 @@ def _is_exact_integer(checker, instance: Any) -> bool:
 
 
 def _is_exact_number(checker, instance: Any) -> bool:
-    return (isinstance(instance, (int, float)) and not isinstance(instance, bool))
+    return isinstance(instance, (int, float)) and not isinstance(instance, bool)
 
 
-STRICT_TYPE_CHECKER = (
-    Draft202012Validator.TYPE_CHECKER
-    .redefine("integer", _is_exact_integer)
-    .redefine("number", _is_exact_number)
-)
+STRICT_TYPE_CHECKER = Draft202012Validator.TYPE_CHECKER.redefine(
+    "integer", _is_exact_integer
+).redefine("number", _is_exact_number)
 
 StrictDraft202012Validator = validators.extend(
     Draft202012Validator,
@@ -67,7 +64,9 @@ class SchemaRegistry:
                 self._raw_resources[f"{version}:{file_path.name}"] = content
                 schema_id = content.get("$id")
                 if schema_id:
-                    resource = Resource.from_contents(content, default_specification=DRAFT202012)
+                    resource = Resource.from_contents(
+                        content, default_specification=DRAFT202012
+                    )
                     registry = registry.with_resource(schema_id, resource)
 
         self._registry = registry
@@ -76,7 +75,9 @@ class SchemaRegistry:
                 schema = self.get_raw_resource(version, f"{name}.schema.json")
                 data = self.get_raw_resource(version, f"{name}.json")
                 StrictDraft202012Validator(
-                    schema, registry=registry, format_checker=FormatChecker(),
+                    schema,
+                    registry=registry,
+                    format_checker=FormatChecker(),
                 ).validate(data)
 
     @property
@@ -89,7 +90,9 @@ class SchemaRegistry:
             raise KeyError(f"Resource {key} not found in registry.")
         return self._raw_resources[key]
 
-    def get_entity_schema(self, entity_type: str, version: str = "2.0.0") -> dict[str, Any]:
+    def get_entity_schema(
+        self, entity_type: str, version: str = "2.0.0"
+    ) -> dict[str, Any]:
         filename = f"{entity_type}.schema.json"
         return self.get_raw_resource(version, filename)
 
@@ -102,13 +105,17 @@ class SchemaRegistry:
     def get_release_data(self, version: str = "2.0.0") -> dict[str, Any]:
         return self.get_raw_resource(version, "release.json")
 
-    def get_validator(self, entity_type: str, version: str = "2.0.0") -> StrictDraft202012Validator:
+    def get_validator(
+        self, entity_type: str, version: str = "2.0.0"
+    ) -> StrictDraft202012Validator:
         cache_key = (entity_type, version)
         if cache_key in self._validators:
             return self._validators[cache_key]
 
         schema = self.get_entity_schema(entity_type, version)
-        validator = StrictDraft202012Validator(schema, registry=self._registry, format_checker=FormatChecker())
+        validator = StrictDraft202012Validator(
+            schema, registry=self._registry, format_checker=FormatChecker()
+        )
         self._validators[cache_key] = validator
         return validator
 

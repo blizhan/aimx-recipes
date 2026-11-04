@@ -1,0 +1,13 @@
+{"case": "rerun_state", "exit": 0, "membership": "existing", "snapshot": "existing"}
+{"case": "corrupt_membership", "errors": [{"code": "snapshot_conflict", "message": "Corrupt parquet file in membership: 'membership.parquet': Invalid Input Error: File '/tmp/aimx-recipes-002-fix-at805ago/a/raw/kaggle/meta-kaggle-16ff25286a473ced/membership/p0-5620f19fe396c2e8/membership.parquet' too small to be a Parquet file\n\nLINE 1: SELECT * FROM read_parquet('/tmp/aimx-recipes-002-fix-at805ago/a/raw/kaggle...\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"}], "exit": 1, "status": "error"}
+{"case": "invalid_review_leaves_snapshot", "errors": [{"code": "reviewed_list_unknown_competition", "file": "p0-reviewed.yaml", "message": "Competition id '999999' in reviewed list is not found in snapshot", "record_id": "999999"}], "exit": 1, "manifests": 0}
+{"case": "temporary_files", "exit": 0, "outside_raw": true, "paths": []}
+{"a_path": "candidate-report.md", "b_path": "candidate-report.md", "case": "fresh_manifest_determinism", "manifests_equal": true, "same_membership_id": true}
+{"case": "apostrophe_input_path", "errors": [], "exit": 0, "status": "ok"}
+{"case": "missing_modality_tag", "errors": [{"code": "csv_malformed", "file": "CompetitionTags.csv", "message": "Dangling TagId '14102' in 'CompetitionTags.csv' missing from 'Tags.csv'", "record_id": "14102"}], "exit": 1}
+{"case": "bad_date_diagnostic", "errors": [{"code": "date_unparseable", "column": "PostDate", "file": "ForumMessages.csv", "message": "Failed to parse date in column 'PostDate'", "record_id": "1001"}], "exit": 1}
+{"case": "missing_values", "higher_is_better": null, "published_at": null}
+{"case": "ignored_rule_fields", "custom_metric_signals": ["S1", "S2", "S3"], "negative_tag_signals": ["S1", "S2", "S3", "S5"]}
+{"accepted": false, "case": "blank_review_accepted", "error_code": "reviewed_list_invalid", "error_message": "Reviewed list schema validation failed: '   ' does not match '\\\\S'"}
+{"case": "consumer_membership_api", "membership_id": "p0-5620f19fe396c2e8", "success": true}
+{"scratch_root": "/tmp/aimx-recipes-002-fix-at805ago"}

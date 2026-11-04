@@ -1,7 +1,6 @@
 """Integration tests for Proposal bundles, hard-constraint coverage, and uncertainty consistency."""
 
 import copy
-import pytest
 from aimx_recipes.models import ValidationContext
 from aimx_recipes.contextual import validate_bundle
 
@@ -43,13 +42,17 @@ def test_proposal_missing_hard_condition_assessment_fails(load_fixture, fixtures
     # Remove one hard condition assessment
     proposal = [r for r in records if r["entity_type"] == "experiment_proposal"][0]
     proposal["match"]["assessments"] = [
-        a for a in proposal["match"]["assessments"]
+        a
+        for a in proposal["match"]["assessments"]
         if a["condition_id"] != "cond:no-target-leakage"
     ]
 
     res = validate_bundle(records, context=ctx)
     assert res.status == "invalid"
-    assert any(d.code == "assessment.inconsistent" and "hard_constraint" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "assessment.inconsistent" and "hard_constraint" in d.check
+        for d in res.diagnostics
+    )
 
 
 def test_proposal_conflicted_facet_cannot_be_satisfied(load_fixture, fixtures_dir):
@@ -57,10 +60,14 @@ def test_proposal_conflicted_facet_cannot_be_satisfied(load_fixture, fixtures_di
     proposal = [r for r in records if r["entity_type"] == "experiment_proposal"][0]
     # Give the assessment a real condition whose facet has unresolved conflicts.
     profile = next(r for r in records if r["entity_type"] == "problem_profile")
-    profile["hard_constraints"].append({
-        "condition_id": "cond:non-stationarity-check",
-        "facet": "characteristics.non_stationarity", "op": "eq", "operand": True,
-    })
+    profile["hard_constraints"].append(
+        {
+            "condition_id": "cond:non-stationarity-check",
+            "facet": "characteristics.non_stationarity",
+            "op": "eq",
+            "operand": True,
+        }
+    )
     proposal["match"]["assessments"].append(
         {
             "owner_type": "problem_profile",
@@ -74,7 +81,10 @@ def test_proposal_conflicted_facet_cannot_be_satisfied(load_fixture, fixtures_di
 
     res = validate_bundle(records, context=ctx)
     assert res.status == "invalid"
-    assert any(d.code == "assessment.inconsistent" and "uncertainty" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "assessment.inconsistent" and "uncertainty" in d.check
+        for d in res.diagnostics
+    )
 
 
 def test_proposal_violated_condition_allowed_and_preserved(load_fixture, fixtures_dir):

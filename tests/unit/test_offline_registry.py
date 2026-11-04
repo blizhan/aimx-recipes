@@ -70,4 +70,7 @@ def test_standalone_schema_shape_versus_library_validation():
     # BUT full library validate_record enforces the closed vocabulary registry!
     lib_res = validate_record(record_unknown_facet)
     assert lib_res.status == "invalid"
-    assert any(d.code == "value.invalid" and "facet_vocabulary" in d.check for d in lib_res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "facet_vocabulary" in d.check
+        for d in lib_res.diagnostics
+    )

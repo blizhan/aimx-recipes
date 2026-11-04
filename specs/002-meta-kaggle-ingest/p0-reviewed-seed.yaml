@@ -1,0 +1,711 @@
+# P0 Reviewed List — Curated Decisions For 101 Heuristic Candidates
+# Date: 2026-11-03 | Author: blizhan | Reviewed with Advisor (claude-opus-5-5)
+# 85 Include / 16 Exclude | Zero unreviewed -> status: final
+entries:
+  - competition_id: "2447"
+    slug: "chess"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2464"
+    slug: "socialNetwork"
+    decision: exclude
+    reason: "Non-tabular modality: graph link prediction."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2467"
+    slug: "RTA"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2478"
+    slug: "stayalert"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2496"
+    slug: "hhp"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSLE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2860"
+    slug: "twitter-psychopathy-prediction"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MCAP; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2895"
+    slug: "twitter-personality-prediction"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MCAP; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2947"
+    slug: "FacebookRecruiting"
+    decision: exclude
+    reason: "Non-tabular modality: graph link prediction."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "2984"
+    slug: "pf2012-diabetes"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3043"
+    slug: "predict-closed-questions-on-stack-overflow"
+    decision: exclude
+    reason: "Non-tabular modality: forum question title and body text NLP classification."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3064"
+    slug: "acm-sf-chapter-hackathon-big"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAP@k; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3080"
+    slug: "acm-sf-chapter-hackathon-small"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAP@k; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3288"
+    slug: "event-recommendation-engine-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAP@k; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3316"
+    slug: "bluebook-for-bulldozers"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSLE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3338"
+    slug: "amazon-employee-access-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3354"
+    slug: "ams-2014-solar-energy-prediction-contest"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3366"
+    slug: "challenges-in-representation-learning-the-black-box-learning-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric CategorizationAccuracy; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3445"
+    slug: "kdd-cup-2013-author-paper-identification-challenge"
+    decision: include
+    reason: "Tabular/relational challenge; MAP@{K}_OLD; tabular feature engineering."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3446"
+    slug: "kdd-cup-2013-author-disambiguation"
+    decision: include
+    reason: "Tabular/relational challenge; FScoreMicro; tabular feature engineering."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3524"
+    slug: "accelerometer-biometric-competition"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3540"
+    slug: "battlefin-s-big-data-combine-forecasting-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3887"
+    slug: "higgs-boson"
+    decision: include
+    reason: "Tabular/time-series dataset; metric HiggsBosonApproximateMedianSignificance; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3897"
+    slug: "acquire-valued-shoppers-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3934"
+    slug: "criteo-display-ad-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "3966"
+    slug: "afsis-soil-properties"
+    decision: exclude
+    reason: "Non-tabular modality: mid-infrared (MIR) spectroscopy absorbance measurements."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "4120"
+    slug: "avazu-ctr-prediction"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "4471"
+    slug: "liberty-mutual-group-property-inspection-prediction"
+    decision: include
+    reason: "Tabular/time-series dataset; metric NormalizedGini; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "5874"
+    slug: "two-sigma-financial-modeling"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RValue; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "6152"
+    slug: "predict-impact-of-air-quality-on-death-rates"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "6644"
+    slug: "basket-analysis"
+    decision: include
+    reason: "Tabular/time-series dataset; metric FScoreMicro; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "6649"
+    slug: "zillow-prize-1"
+    decision: include
+    reason: "Tabular/time-series dataset; metric ZillowMAE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "7162"
+    slug: "kkbox-music-recommendation-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "7163"
+    slug: "kkbox-churn-prediction-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "7277"
+    slug: "recruit-restaurant-visitor-forecasting"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSLE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "7299"
+    slug: "nomad2018-predict-transparent-conductors"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MCRMSLE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "7559"
+    slug: "mercari-price-suggestion-challenge"
+    decision: exclude
+    reason: "Non-tabular modality: text-dominant item title and description NLP task."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "8311"
+    slug: "womens-machine-learning-competition-2018"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "8514"
+    slug: "dmia-surnames-classification"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "8540"
+    slug: "talkingdata-adtracking-fraud-detection"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "9717"
+    slug: "santander-value-prediction-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSLE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "9748"
+    slug: "ubaar-competition"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAPE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "10683"
+    slug: "microsoft-malware-prediction"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "11835"
+    slug: "reducing-commercial-aviation-fatalities"
+    decision: exclude
+    reason: "Non-tabular modality: raw continuous physiological sensor signal waveforms (EEG/ECG)."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "11999"
+    slug: "mens-machine-learning-competition-2019"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "12000"
+    slug: "womens-machine-learning-competition-2019"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "12349"
+    slug: "2019-1st-ml-month-with-kakr"
+    decision: include
+    reason: "Tabular/time-series dataset; metric CategorizationAccuracy; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "14724"
+    slug: "2019-3rd-ml-month-with-kakr"
+    decision: exclude
+    reason: "Non-tabular modality: automobile photograph image classification."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "15128"
+    slug: "banco-galicia-dataton-2019"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "15696"
+    slug: "nfl-big-data-bowl-2020"
+    decision: include
+    reason: "Tabular/time-series dataset; metric CRPS; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "16531"
+    slug: "data-science-bowl-2019"
+    decision: include
+    reason: "Tabular/time-series dataset; metric QuadraticWeightedKappa; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "17000"
+    slug: "cat-in-the-dat-ii"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "17807"
+    slug: "widsdatathon2020"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "18045"
+    slug: "liverpool-ion-switching"
+    decision: exclude
+    reason: "Non-tabular modality: raw continuous 1D patch-clamp physical current waveform."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "18191"
+    slug: "cl-cv2020"
+    decision: exclude
+    reason: "Non-tabular modality: movie poster image classification."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "20230"
+    slug: "products-10k"
+    decision: exclude
+    reason: "Non-tabular modality: e-commerce product photograph image recognition."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "20819"
+    slug: "nta-landmarks-detection"
+    decision: exclude
+    reason: "Non-tabular modality: facial photograph keypoint landmark detection."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "21111"
+    slug: "2020-ai-termproject-18011793"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "21243"
+    slug: "unemployment-rate"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "21320"
+    slug: "aiseaweather"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "22111"
+    slug: "stanford-covid-vaccine"
+    decision: exclude
+    reason: "Non-tabular modality: biological sequence data (bioseq; review: RNA sequence data, not tabular)."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "22359"
+    slug: "widsdatathon2021"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "22565"
+    slug: "mf-accelerator"
+    decision: include
+    reason: "Tabular/time-series dataset; metric FScoreMacro; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "23684"
+    slug: "classification-data-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "24764"
+    slug: "actuarial-loss-estimation"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "25656"
+    slug: "sugiura-lab-first-competition"
+    decision: include
+    reason: "Tabular/time-series dataset; metric CategorizationAccuracy; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "26079"
+    slug: "ncaam-march-mania-2021"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "26080"
+    slug: "ncaaw-march-mania-2021"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "26082"
+    slug: "ncaaw-march-mania-2021-spread"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "26611"
+    slug: "kaggledatafest"
+    decision: include
+    reason: "Tabular/time-series dataset; metric FScoreMicro; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "27783"
+    slug: "mlb-player-digital-engagement-forecasting"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MeanColumnwiseMAE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "29624"
+    slug: "DATACUP-ROUND2"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "30103"
+    slug: "porto-seguro-data-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric F_{Beta} (deprecated); tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "30591"
+    slug: "beyond-analysis"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MCRMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "31254"
+    slug: "h-and-m-personalized-fashion-recommendations"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MAP@{K}; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "32437"
+    slug: "gmsc-thebridge-dsft2109"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "32505"
+    slug: "coffeecsmr"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34024"
+    slug: "nytfug"
+    decision: include
+    reason: "Tabular/time-series dataset; metric CategorizationAccuracy; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34038"
+    slug: "netflix-appetency"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34093"
+    slug: "autism-prediction"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34097"
+    slug: "qualityeducation"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MCRMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34538"
+    slug: "mens-march-mania-2022"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34542"
+    slug: "womens-march-mania-2022"
+    decision: include
+    reason: "Tabular/time-series dataset; metric LogLoss; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "34683"
+    slug: "predict-potential-spammers-on-fiverr"
+    decision: include
+    reason: "Tabular/time-series dataset; metric FScoreMacro; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "35297"
+    slug: "energy-anomaly-detection"
+    decision: include
+    reason: "Tabular/time-series dataset; metric AUC; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "37190"
+    slug: "novozymes-enzyme-stability-prediction"
+    decision: exclude
+    reason: "Non-tabular modality: biological sequence data (bioseq; review: protein sequence)."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "38760"
+    slug: "otto-recommender-system"
+    decision: include
+    reason: "Tabular/time-series dataset; metric WeightedRecall@{K}; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "43454"
+    slug: "widsdatathon2023"
+    decision: include
+    reason: "Tabular/time-series dataset; metric RMSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "46801"
+    slug: "march-machine-learning-mania-2023"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "51294"
+    slug: "stanford-ribonanza-rna-folding"
+    decision: exclude
+    reason: "Non-tabular modality: biological sequence data (bioseq; review: RNA sequence)."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "56537"
+    slug: "leap-atmospheric-physics-ai-climsim"
+    decision: include
+    reason: "Tabular climate array simulation/emulation; R2 Score."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "65862"
+    slug: "widsdatathon2024-challenge1"
+    decision: include
+    reason: "Tabular/time-series dataset; metric Roc Auc Score; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "70068"
+    slug: "march-machine-learning-mania-2024"
+    decision: include
+    reason: "Tabular/time-series dataset; metric March Mania 2024 Metric; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "70089"
+    slug: "um-game-playing-strength-of-mcts-variants"
+    decision: include
+    reason: "Tabular/time-series dataset; metric Mean Squared Error; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "70942"
+    slug: "equity-post-HCT-survival-predictions"
+    decision: include
+    reason: "Tabular/time-series dataset; metric eefs_concordance_index; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "74608"
+    slug: "neurips-open-polymer-prediction-2025"
+    decision: exclude
+    reason: "Non-tabular modality: molecular SMILES strings and chemical polymer structure."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "91497"
+    slug: "march-machine-learning-mania-2025"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "94771"
+    slug: "mitsui-commodity-prediction-challenge"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MITSUI&CO. Commodity Prediction Metric; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "105802"
+    slug: "dig-4-bio-raman-transfer-learning-challenge"
+    decision: exclude
+    reason: "Non-tabular modality: Raman spectroscopy data."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "114239"
+    slug: "nfl-big-data-bowl-2026-prediction"
+    decision: include
+    reason: "Tabular tracking/trajectory coordinates; NFL_2025."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "125681"
+    slug: "WiDSWorldWide_GlobalDathon26"
+    decision: include
+    reason: "Tabular/time-series dataset; metric wildfire_time_to_hit_metric; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+
+  - competition_id: "130469"
+    slug: "march-machine-learning-mania-2026"
+    decision: include
+    reason: "Tabular/time-series dataset; metric MSE; tabular feature modeling."
+    reviewed_by: "blizhan"
+    reviewed_on: "2026-11-03"
+

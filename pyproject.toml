@@ -9,10 +9,15 @@ description = "Core schemas, facet vocabulary, and offline contract validation f
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "duckdb>=2.0,<3",
     "jsonschema>=4.26,<5",
+    "pyyaml>=6.0.3,<7",
     "referencing>=0.37,<0.38",
     "rfc3339-validator>=0.1.4,<0.2",
 ]
+
+[project.scripts]
+aimx-recipes = "aimx_recipes.cli:main"
 
 [dependency-groups]
 dev = [
@@ -21,10 +26,18 @@ dev = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aimx_recipes"]
-exclude = ["src/aimx_recipes/_schemas"]
+exclude = ["src/aimx_recipes/_schemas", "src/aimx_recipes/_curation"]
 
 [tool.hatch.build.targets.wheel.force-include]
 "schemas" = "aimx_recipes/_schemas"
+"curation" = "aimx_recipes/_curation"
 
 [tool.pytest.ini_options]
-testpaths = ["tests/unit", "tests/contract", "tests/integration"]
+testpaths = ["tests/unit", "tests/contract", "tests/integration", "tests/packaging", "tests/benchmarks"]
+markers = [
+    "integration: marks integration tests",
+    "contract: marks contract tests",
+    "unit: marks unit tests",
+    "smoke: marks smoke tests",
+    "kaggle_ref: marks reference dataset tests",
+]

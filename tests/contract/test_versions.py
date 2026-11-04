@@ -1,6 +1,5 @@
 """Contract tests for schema versions, release declaration, and version dispatch."""
 
-import pytest
 from aimx_recipes.schema_registry import get_global_registry
 from aimx_recipes.validation import validate_record
 
@@ -16,7 +15,9 @@ def test_release_ledger_contents():
     assert "1.0.0" in release["rationale"]
     assert "frozen" in release["rationale"]
     assert release["extraction_regeneration"] == "not_applicable"
-    assert release["aimx_contract_revision"] == "1b2dd98b6621aa893c056013cd0dd06fff7ca405"
+    assert (
+        release["aimx_contract_revision"] == "1b2dd98b6621aa893c056013cd0dd06fff7ca405"
+    )
 
     expected_entities = [
         "source",
@@ -35,7 +36,10 @@ def test_unsupported_schema_version_rejected(load_fixture):
     record = load_fixture("us4/unsupported_version_record.json")
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "version.unsupported" and d.pointer == "/schema_version" for d in res.diagnostics)
+    assert any(
+        d.code == "version.unsupported" and d.pointer == "/schema_version"
+        for d in res.diagnostics
+    )
 
 
 def test_previous_draft_version_is_not_silently_migrated(load_fixture):
@@ -50,7 +54,10 @@ def test_missing_schema_version_rejected(load_fixture):
     record = load_fixture("us4/missing_version_record.json")
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "field.required" and d.pointer == "/schema_version" for d in res.diagnostics)
+    assert any(
+        d.code == "field.required" and d.pointer == "/schema_version"
+        for d in res.diagnostics
+    )
 
 
 def test_all_eight_entities_manifest_coverage(manifest):

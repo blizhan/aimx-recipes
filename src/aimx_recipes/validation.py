@@ -40,7 +40,9 @@ def _has_surrogate_in_obj(val: Any) -> bool:
     if isinstance(val, str):
         return _detect_surrogates(val)
     elif isinstance(val, dict):
-        return any(_has_surrogate_in_obj(k) or _has_surrogate_in_obj(v) for k, v in val.items())
+        return any(
+            _has_surrogate_in_obj(k) or _has_surrogate_in_obj(v) for k, v in val.items()
+        )
     elif isinstance(val, list):
         return any(_has_surrogate_in_obj(x) for x in val)
     return False
@@ -50,7 +52,7 @@ def _pairs_hook_reject_duplicates(pairs: list[tuple[Any, Any]]) -> dict[str, Any
     res: dict[str, Any] = {}
     for key, val in pairs:
         if key in res:
-            raise DuplicateKeyError(f"Duplicate key encountered")
+            raise DuplicateKeyError("Duplicate key encountered")
         res[key] = val
     return res
 
@@ -60,14 +62,20 @@ def extract_record_identity(record: Any) -> tuple[str | None, str | None]:
     if not isinstance(record, (dict, Mapping)):
         return None, None
     raw_type = record.get("entity_type")
-    entity_type = raw_type if isinstance(raw_type, str) and not _detect_surrogates(raw_type) else None
+    entity_type = (
+        raw_type
+        if isinstance(raw_type, str) and not _detect_surrogates(raw_type)
+        else None
+    )
     if not entity_type:
         return None, None
     id_field = ID_FIELD_FOR_ENTITY.get(entity_type)
     if not id_field:
         return entity_type, None
     raw_id = record.get(id_field)
-    record_id = raw_id if isinstance(raw_id, str) and not _detect_surrogates(raw_id) else None
+    record_id = (
+        raw_id if isinstance(raw_id, str) and not _detect_surrogates(raw_id) else None
+    )
     return entity_type, record_id
 
 
@@ -148,11 +156,21 @@ def parse_record(text: str, input_index: int = 0) -> ParseResult:
         return ParseResult(record=None, diagnostics=[diag])
 
     if preflight_json_domain(parsed):
-        return ParseResult(record=None, diagnostics=[Diagnostic(
-            entity_type=None, record_id=None, input_index=input_index, pointer="",
-            code="parse.invalid_json", message="Parsed value is outside the JSON domain.",
-            check="json_domain", severity="error",
-        )])
+        return ParseResult(
+            record=None,
+            diagnostics=[
+                Diagnostic(
+                    entity_type=None,
+                    record_id=None,
+                    input_index=input_index,
+                    pointer="",
+                    code="parse.invalid_json",
+                    message="Parsed value is outside the JSON domain.",
+                    check="json_domain",
+                    severity="error",
+                )
+            ],
+        )
     return ParseResult(record=parsed, diagnostics=[])
 
 
@@ -173,11 +191,18 @@ def preflight_json_domain(
         is_container = isinstance(node, (Mapping, list))
         if is_container:
             if id(node) in ancestors:
-                diagnostics.append(Diagnostic(
-                    entity_type=entity_type, record_id=record_id, input_index=input_index,
-                    pointer=pointer, code="type.invalid", message="Cyclic values are outside the JSON domain.",
-                    check="json_domain", severity="error",
-                ))
+                diagnostics.append(
+                    Diagnostic(
+                        entity_type=entity_type,
+                        record_id=record_id,
+                        input_index=input_index,
+                        pointer=pointer,
+                        code="type.invalid",
+                        message="Cyclic values are outside the JSON domain.",
+                        check="json_domain",
+                        severity="error",
+                    )
+                )
                 return
             ancestors.add(id(node))
         if isinstance(node, (dict, Mapping)):
@@ -197,11 +222,18 @@ def preflight_json_domain(
                     )
                     continue
                 if _detect_surrogates(k):
-                    diagnostics.append(Diagnostic(
-                        entity_type=entity_type, record_id=record_id, input_index=input_index,
-                        pointer=pointer, code="value.invalid", message="Object key contains lone Unicode surrogates.",
-                        check="json_domain", severity="error",
-                    ))
+                    diagnostics.append(
+                        Diagnostic(
+                            entity_type=entity_type,
+                            record_id=record_id,
+                            input_index=input_index,
+                            pointer=pointer,
+                            code="value.invalid",
+                            message="Object key contains lone Unicode surrogates.",
+                            check="json_domain",
+                            severity="error",
+                        )
+                    )
                     continue
                 _traverse(v, [*path, k])
         elif isinstance(node, list):
@@ -220,10 +252,18 @@ def preflight_json_domain(
         if is_container:
             ancestors.remove(id(node))
         if message:
-            diagnostics.append(Diagnostic(
-                entity_type=entity_type, record_id=record_id, input_index=input_index,
-                pointer=pointer, code=code, message=message, check="json_domain", severity="error",
-            ))
+            diagnostics.append(
+                Diagnostic(
+                    entity_type=entity_type,
+                    record_id=record_id,
+                    input_index=input_index,
+                    pointer=pointer,
+                    code=code,
+                    message=message,
+                    check="json_domain",
+                    severity="error",
+                )
+            )
 
     _traverse(record, [])
     return diagnostics
@@ -316,7 +356,9 @@ def _validate_facet_scalar_or_collection(facet_def: dict[str, Any], val: Any) ->
         if not isinstance(val, list) or len(val) == 0:
             return False
         allowed = facet_def.get("allowed_values", [])
-        return all(isinstance(v, str) and v in allowed for v in val) and len(val) == len(set(val))
+        return all(isinstance(v, str) and v in allowed for v in val) and len(
+            val
+        ) == len(set(val))
     elif t == "prior_attempts":
         if not isinstance(val, list):
             return False
@@ -454,7 +496,9 @@ def _validate_condition_shape(
                 unique = len(operand) == len(set(operand))
             except TypeError:
                 unique = False
-            if not unique or not all(_validate_facet_scalar_or_collection(facet_def, x) for x in operand):
+            if not unique or not all(
+                _validate_facet_scalar_or_collection(facet_def, x) for x in operand
+            ):
                 diags.append(
                     Diagnostic(
                         entity_type=entity_type,
@@ -591,11 +635,21 @@ def validate_record(
 
     diagnostics: list[Diagnostic] = []
     if not isinstance(record, Mapping):
-        return build_validation_result(level="structural", diagnostics=[Diagnostic(
-            entity_type=None, record_id=None, input_index=input_index, pointer="",
-            code="type.invalid", message="Record root must be a JSON object.",
-            check="root_type", severity="error",
-        )])
+        return build_validation_result(
+            level="structural",
+            diagnostics=[
+                Diagnostic(
+                    entity_type=None,
+                    record_id=None,
+                    input_index=input_index,
+                    pointer="",
+                    code="type.invalid",
+                    message="Record root must be a JSON object.",
+                    check="root_type",
+                    severity="error",
+                )
+            ],
+        )
 
     # 1. Domain preflight
     preflight_diags = preflight_json_domain(
@@ -634,7 +688,10 @@ def validate_record(
             structurally_valid=False,
             contextual_complete=False,
         )
-    if not isinstance(schema_version, str) or schema_version not in SUPPORTED_SCHEMA_VERSIONS:
+    if (
+        not isinstance(schema_version, str)
+        or schema_version not in SUPPORTED_SCHEMA_VERSIONS
+    ):
         diagnostics.append(
             Diagnostic(
                 entity_type=entity_type,
@@ -675,7 +732,10 @@ def validate_record(
             structurally_valid=False,
             contextual_complete=False,
         )
-    if not isinstance(raw_entity_type, str) or raw_entity_type not in KNOWN_ENTITY_TYPES:
+    if (
+        not isinstance(raw_entity_type, str)
+        or raw_entity_type not in KNOWN_ENTITY_TYPES
+    ):
         diagnostics.append(
             Diagnostic(
                 entity_type=None,
@@ -725,10 +785,19 @@ def validate_record(
             if err.validator == "oneOf" and list(err.path) == ["provenance"]:
                 origins = {"extracted": 0, "human": 1, "synthetic": 2}
                 provenance = record.get("provenance")
-                origin = provenance.get("origin") if isinstance(provenance, dict) else None
+                origin = (
+                    provenance.get("origin") if isinstance(provenance, dict) else None
+                )
                 if isinstance(origin, str) and origin in origins:
-                    errors = [child for child in err.context if child.schema_path[0] == origins[origin]] or errors
-            diagnostics.extend(_map_jsonschema_error(error, entity_type, record_id, input_index) for error in errors)
+                    errors = [
+                        child
+                        for child in err.context
+                        if child.schema_path[0] == origins[origin]
+                    ] or errors
+            diagnostics.extend(
+                _map_jsonschema_error(error, entity_type, record_id, input_index)
+                for error in errors
+            )
     except Exception:
         diagnostics.append(
             Diagnostic(
@@ -750,12 +819,18 @@ def validate_record(
     provenance = record.get("provenance")
     if isinstance(provenance, dict) and provenance.get("origin") == "extracted":
         if provenance["schema_version"] != schema_version:
-            diagnostics.append(Diagnostic(
-                entity_type=entity_type, record_id=record_id, input_index=input_index,
-                pointer="/provenance/schema_version", code="version.unsupported",
-                message="Extraction schema version must match the containing record.",
-                check="provenance_version", severity="error",
-            ))
+            diagnostics.append(
+                Diagnostic(
+                    entity_type=entity_type,
+                    record_id=record_id,
+                    input_index=input_index,
+                    pointer="/provenance/schema_version",
+                    code="version.unsupported",
+                    message="Extraction schema version must match the containing record.",
+                    check="provenance_version",
+                    severity="error",
+                )
+            )
 
     # 5. Entity-specific vocabulary and taxonomy enforcement
     vocab = registry.get_vocabulary_data(schema_version)
@@ -795,17 +870,31 @@ def validate_record(
         metric_value = metric.get("value")
         cutoff_value = cutoff.get("value")
         if metric_value == "map_at_k" and cutoff_value is None:
-            diagnostics.append(Diagnostic(
-                entity_type=entity_type, record_id=record_id, input_index=input_index,
-                pointer="/facets/metric.k", code="field.required",
-                message="Metric map_at_k requires a known metric.k.", check="metric_k", severity="error",
-            ))
+            diagnostics.append(
+                Diagnostic(
+                    entity_type=entity_type,
+                    record_id=record_id,
+                    input_index=input_index,
+                    pointer="/facets/metric.k",
+                    code="field.required",
+                    message="Metric map_at_k requires a known metric.k.",
+                    check="metric_k",
+                    severity="error",
+                )
+            )
         elif cutoff_value is not None and metric_value != "map_at_k":
-            diagnostics.append(Diagnostic(
-                entity_type=entity_type, record_id=record_id, input_index=input_index,
-                pointer="/facets/metric.k/value", code="value.invalid",
-                message="A known metric.k is permitted only with map_at_k.", check="metric_k", severity="error",
-            ))
+            diagnostics.append(
+                Diagnostic(
+                    entity_type=entity_type,
+                    record_id=record_id,
+                    input_index=input_index,
+                    pointer="/facets/metric.k/value",
+                    code="value.invalid",
+                    message="A known metric.k is permitted only with map_at_k.",
+                    check="metric_k",
+                    severity="error",
+                )
+            )
 
         # Validate hard constraints
         hard_constraints = record.get("hard_constraints", [])
@@ -831,7 +920,11 @@ def validate_record(
         if isinstance(action_type, str) and action_type in tax["groups"]:
             expected_prefix = f"{action_type}."
             leaves = tax["groups"][action_type]["leaves"]
-            if not isinstance(action, str) or not action.startswith(expected_prefix) or action.split(".", 1)[1] not in leaves:
+            if (
+                not isinstance(action, str)
+                or not action.startswith(expected_prefix)
+                or action.split(".", 1)[1] not in leaves
+            ):
                 diagnostics.append(
                     Diagnostic(
                         entity_type=entity_type,
@@ -848,10 +941,18 @@ def validate_record(
         # IDs identify a condition across all three recipe lists.
         seen_recipe_conds: set[str] = set()
         for c_idx, cond in enumerate(record["applicability"]):
-            diagnostics.extend(_validate_condition_shape(
-                cond, c_idx, "/applicability", vocab, entity_type, record_id,
-                input_index, seen_recipe_conds,
-            ))
+            diagnostics.extend(
+                _validate_condition_shape(
+                    cond,
+                    c_idx,
+                    "/applicability",
+                    vocab,
+                    entity_type,
+                    record_id,
+                    input_index,
+                    seen_recipe_conds,
+                )
+            )
         preconditions = record.get("preconditions", [])
         if isinstance(preconditions, list):
             for c_idx, cond in enumerate(preconditions):
@@ -887,7 +988,9 @@ def validate_record(
         if isinstance(license_info, dict):
             status = license_info.get("status")
             identifier = license_info.get("identifier")
-            if status in ("permissive", "restricted") and (not isinstance(identifier, str) or not identifier.strip()):
+            if status in ("permissive", "restricted") and (
+                not isinstance(identifier, str) or not identifier.strip()
+            ):
                 diagnostics.append(
                     Diagnostic(
                         entity_type=entity_type,
@@ -910,7 +1013,9 @@ def validate_record(
         metric_dir = record.get("metric_direction")
         metric_k = record.get("metric_k")
 
-        has_measurement = base_val is not None or cand_val is not None or delta_val is not None
+        has_measurement = (
+            base_val is not None or cand_val is not None or delta_val is not None
+        )
         if has_measurement:
             if scope is None:
                 diagnostics.append(
@@ -971,8 +1076,15 @@ def validate_record(
                     )
                 domain = metric_def["domain"]
                 min_val, max_val = domain[0], domain[1]
-                for f_name, f_val in [("baseline_value", base_val), ("candidate_value", cand_val)]:
-                    if f_val is not None and isinstance(f_val, (int, float)) and not isinstance(f_val, bool):
+                for f_name, f_val in [
+                    ("baseline_value", base_val),
+                    ("candidate_value", cand_val),
+                ]:
+                    if (
+                        f_val is not None
+                        and isinstance(f_val, (int, float))
+                        and not isinstance(f_val, bool)
+                    ):
                         if min_val is not None and f_val < min_val:
                             diagnostics.append(
                                 Diagnostic(
@@ -1081,8 +1193,16 @@ def validate_record(
         ev_type = record.get("type")
         comparison = record.get("comparison")
 
-        if isinstance(quote, str) and isinstance(char_start, int) and isinstance(char_end, int):
-            if char_start < 0 or char_end <= char_start or (char_end - char_start) != len(quote):
+        if (
+            isinstance(quote, str)
+            and isinstance(char_start, int)
+            and isinstance(char_end, int)
+        ):
+            if (
+                char_start < 0
+                or char_end <= char_start
+                or (char_end - char_start) != len(quote)
+            ):
                 diagnostics.append(
                     Diagnostic(
                         entity_type=entity_type,
@@ -1182,7 +1302,10 @@ def validate_record(
                         actual = res_item.get("actual")
                         source = res_item.get("source")
                         if verif == "verified":
-                            if actual is None or not (isinstance(actual, (int, float)) and not isinstance(actual, bool)):
+                            if actual is None or not (
+                                isinstance(actual, (int, float))
+                                and not isinstance(actual, bool)
+                            ):
                                 diagnostics.append(
                                     Diagnostic(
                                         entity_type=entity_type,
@@ -1195,7 +1318,11 @@ def validate_record(
                                         severity="error",
                                     )
                                 )
-                            if source is None or not isinstance(source, str) or not source.strip():
+                            if (
+                                source is None
+                                or not isinstance(source, str)
+                                or not source.strip()
+                            ):
                                 diagnostics.append(
                                     Diagnostic(
                                         entity_type=entity_type,
@@ -1227,7 +1354,10 @@ def validate_record(
             if isinstance(evaluation, dict):
                 preflight = evaluation.get("preflight_evidence")
                 if isinstance(preflight, list) and len(preflight) > 0:
-                    has_local = any(isinstance(p, dict) and p.get("kind") == "local_artifact" for p in preflight)
+                    has_local = any(
+                        isinstance(p, dict) and p.get("kind") == "local_artifact"
+                        for p in preflight
+                    )
                     if not has_local:
                         diagnostics.append(
                             Diagnostic(

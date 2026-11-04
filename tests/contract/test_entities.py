@@ -1,6 +1,5 @@
 """Contract tests for entity schemas (valid/invalid pairs, closed objects, exact fields)."""
 
-import pytest
 from aimx_recipes.validation import validate_record
 
 KNOWN_PREFIXES = (
@@ -27,10 +26,14 @@ def test_entities_fixtures_against_manifest(manifest, load_fixture):
 
         expected_diags = case_info["expected_diagnostics"]
         if not expected_diags:
-            assert len(result.diagnostics) == 0, f"Case {case_id} had unexpected diagnostics: {result.diagnostics}"
+            assert len(result.diagnostics) == 0, (
+                f"Case {case_id} had unexpected diagnostics: {result.diagnostics}"
+            )
             assert result.structurally_valid is True
         else:
-            assert len(result.diagnostics) > 0, f"Case {case_id} expected diagnostics but got none"
+            assert len(result.diagnostics) > 0, (
+                f"Case {case_id} expected diagnostics but got none"
+            )
             assert result.structurally_valid is False
             for exp in expected_diags:
                 assert any(

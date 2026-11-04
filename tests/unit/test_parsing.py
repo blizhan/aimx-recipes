@@ -1,6 +1,5 @@
 """Tests for strict JSON parsing, lone surrogates, duplicate keys, and exact-type preflight."""
 
-import pytest
 from aimx_recipes.validation import parse_record, preflight_json_domain
 
 
@@ -24,11 +23,13 @@ def test_parse_rejects_duplicate_keys():
 
 
 def test_parse_rejects_non_object_roots():
-    for text in ['[1, 2, 3]', '"just a string"', '42', 'true', 'null']:
+    for text in ["[1, 2, 3]", '"just a string"', "42", "true", "null"]:
         res = parse_record(text)
         assert res.record is None
         assert len(res.diagnostics) > 0
-        assert any(d.code in ("parse.invalid_json", "type.invalid") for d in res.diagnostics)
+        assert any(
+            d.code in ("parse.invalid_json", "type.invalid") for d in res.diagnostics
+        )
 
 
 def test_parse_rejects_non_finite_numbers():
@@ -65,6 +66,9 @@ def test_preflight_boolean_is_not_number():
 def test_no_input_coercion_or_mutation():
     original = {"problem_id": "prob-1", "title": "  Untrimmed Title  ", "count": 10}
     copy_orig = dict(original)
-    parse_res = parse_record('{"problem_id": "prob-1", "title": "  Untrimmed Title  ", "count": 10}')
+    parse_res = parse_record(
+        '{"problem_id": "prob-1", "title": "  Untrimmed Title  ", "count": 10}'
+    )
     assert parse_res.record == original
+    assert copy_orig == original
     assert parse_res.record["title"] == "  Untrimmed Title  "

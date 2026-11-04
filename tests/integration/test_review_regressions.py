@@ -23,16 +23,25 @@ def proposal_bundle(load_fixture, fixtures_dir):
         if record["entity_type"] == "attempt":
             record["recipe_id"] = recipe["recipe_id"]
     records.extend([profile, recipe, proposal])
-    context = ValidationContext(document_texts={
-        "doc:us2-body": (fixtures_dir / "us2/document_text.txt").read_text()
-    })
+    context = ValidationContext(
+        document_texts={
+            "doc:us2-body": (fixtures_dir / "us2/document_text.txt").read_text()
+        }
+    )
     return records, context
 
 
-def test_seven_evidence_types_have_linked_acceptance_examples(manifest, load_fixture, fixtures_dir):
+def test_seven_evidence_types_have_linked_acceptance_examples(
+    manifest, load_fixture, fixtures_dir
+):
     expected = {
-        "controlled_ablation", "reported_gain", "reported_failure", "used_in_solution",
-        "attempted", "author_opinion", "independently_reproduced",
+        "controlled_ablation",
+        "reported_gain",
+        "reported_failure",
+        "used_in_solution",
+        "attempted",
+        "author_opinion",
+        "independently_reproduced",
     }
     seen = set()
     for case in manifest["cases"].values():
@@ -43,7 +52,10 @@ def test_seven_evidence_types_have_linked_acceptance_examples(manifest, load_fix
         document = next(r for r in records if r["entity_type"] == "document")
         evidence = next(r for r in records if r["entity_type"] == "evidence")
         attempt = next(r for r in records if r["entity_type"] == "attempt")
-        result = validate_bundle(records, context=ValidationContext(document_texts={document["document_id"]: text}))
+        result = validate_bundle(
+            records,
+            context=ValidationContext(document_texts={document["document_id"]: text}),
+        )
         assert result.status == case["expected_status"] == "valid"
         assert result.level == case["expected_level"] == "contextual"
         assert not result.diagnostics
@@ -75,7 +87,9 @@ def test_registry_never_falls_back_to_checkout(monkeypatch):
     from pathlib import Path
     import aimx_recipes.schema_registry as registry_module
 
-    monkeypatch.setattr(registry_module.importlib.resources, "files", lambda _: Path("/absent/package"))
+    monkeypatch.setattr(
+        registry_module.importlib.resources, "files", lambda _: Path("/absent/package")
+    )
     with pytest.raises(RuntimeError, match="Packaged schema resources"):
         registry_module.SchemaRegistry()
 
@@ -116,7 +130,10 @@ def test_cyclic_metadata_is_not_json(load_fixture):
     recipe["configuration"]["cycle"] = recipe
     result = validate_record(recipe)
     assert result.status == "invalid"
-    assert any(d.pointer == "/configuration/cycle" and d.check == "json_domain" for d in result.diagnostics)
+    assert any(
+        d.pointer == "/configuration/cycle" and d.check == "json_domain"
+        for d in result.diagnostics
+    )
 
 
 def test_malformed_collection_returns_diagnostic(load_fixture):
@@ -124,7 +141,9 @@ def test_malformed_collection_returns_diagnostic(load_fixture):
     profile["facets"]["temporal.covariates"] = {"basis": "observed", "value": [{}]}
     result = validate_record(profile)
     assert result.status == "invalid"
-    assert any(d.pointer.endswith("temporal.covariates/value") for d in result.diagnostics)
+    assert any(
+        d.pointer.endswith("temporal.covariates/value") for d in result.diagnostics
+    )
 
 
 @pytest.mark.parametrize("field", ["problem_id", "facets", "hard_constraints"])
@@ -136,10 +155,15 @@ def test_malformed_bundle_fields_do_not_crash(load_fixture, field):
     assert result.contextual_complete is False
 
 
-@pytest.mark.parametrize("facet,operand", [
-    ("dataset.rows", -1), ("dataset.missing_fraction", 1.1),
-    ("temporal.horizon_steps", 0), ("compute.runtime_seconds", -0.1),
-])
+@pytest.mark.parametrize(
+    "facet,operand",
+    [
+        ("dataset.rows", -1),
+        ("dataset.missing_fraction", 1.1),
+        ("temporal.horizon_steps", 0),
+        ("compute.runtime_seconds", -0.1),
+    ],
+)
 def test_numeric_condition_obeys_domain(load_fixture, facet, operand):
     recipe = load_fixture("us1/recipe_valid.json")
     recipe["preconditions"][0].update(facet=facet, op="lt", operand=operand)
@@ -150,7 +174,14 @@ def test_numeric_condition_obeys_domain(load_fixture, facet, operand):
 
 def test_applicability_is_a_vocabulary_condition_list(load_fixture):
     recipe = load_fixture("us1/recipe_valid.json")
-    recipe["applicability"] = [{"condition_id": "cond:app", "facet": "task.kind", "op": "eq", "operand": "forecasting"}]
+    recipe["applicability"] = [
+        {
+            "condition_id": "cond:app",
+            "facet": "task.kind",
+            "op": "eq",
+            "operand": "forecasting",
+        }
+    ]
     assert validate_record(recipe).status == "valid"
     recipe["applicability"][0]["operand"] = "invented"
     assert validate_record(recipe).status == "invalid"
@@ -158,7 +189,10 @@ def test_applicability_is_a_vocabulary_condition_list(load_fixture):
     assert validate_record(recipe).status == "invalid"
 
 
-@pytest.mark.parametrize("metric,k,valid", [("map_at_k", None, False), ("rmse", 3, False), ("map_at_k", 3, True)])
+@pytest.mark.parametrize(
+    "metric,k,valid",
+    [("map_at_k", None, False), ("rmse", 3, False), ("map_at_k", 3, True)],
+)
 def test_profile_metric_cutoff_pair(load_fixture, metric, k, valid):
     profile = load_fixture("us1/profile_valid.json")
     profile["facets"]["metric.name"] = {"basis": "observed", "value": metric}
@@ -168,18 +202,27 @@ def test_profile_metric_cutoff_pair(load_fixture, metric, k, valid):
     assert (validate_record(profile).status == "valid") is valid
 
 
-@pytest.mark.parametrize("section,key,value", [
-    ("evaluation", "protocol_id", " "), ("evaluation", "protocol_sha256", ""),
-    ("evaluation", "protocol_sha256", "a" * 64 + "\n"),
-    ("evaluation", "metric", ""), ("evaluation", "acceptance_rule", "\n"),
-    ("data", "candidate_fingerprint", " "),
-])
-def test_nullable_proposal_decisions_validate_populated_values(load_fixture, section, key, value):
+@pytest.mark.parametrize(
+    "section,key,value",
+    [
+        ("evaluation", "protocol_id", " "),
+        ("evaluation", "protocol_sha256", ""),
+        ("evaluation", "protocol_sha256", "a" * 64 + "\n"),
+        ("evaluation", "metric", ""),
+        ("evaluation", "acceptance_rule", "\n"),
+        ("data", "candidate_fingerprint", " "),
+    ],
+)
+def test_nullable_proposal_decisions_validate_populated_values(
+    load_fixture, section, key, value
+):
     proposal = load_fixture("us3/proposal_valid.json")
     proposal["experiment_contract"][section][key] = value
     result = validate_record(proposal)
     assert result.status == "invalid"
-    assert any(d.pointer == f"/experiment_contract/{section}/{key}" for d in result.diagnostics)
+    assert any(
+        d.pointer == f"/experiment_contract/{section}/{key}" for d in result.diagnostics
+    )
 
 
 def test_nullable_baseline_rejects_blank(load_fixture):
@@ -193,28 +236,39 @@ def test_problem_source_reference_must_resolve(load_fixture):
     problem["source_ids"] = ["source:missing"]
     result = validate_bundle([problem], context=ValidationContext())
     assert result.status == "invalid"
-    assert any(d.pointer == "/source_ids/0" and d.code == "reference.missing" for d in result.diagnostics)
+    assert any(
+        d.pointer == "/source_ids/0" and d.code == "reference.missing"
+        for d in result.diagnostics
+    )
 
 
 def test_conflict_document_reference_must_resolve(proposal_bundle):
     records, context = proposal_bundle
     profile = next(r for r in records if r["entity_type"] == "problem_profile")
     profile["facets"]["characteristics.non_stationarity"]["conflicts"][0]["source"] = {
-        "kind": "document", "ref": "doc:missing"
+        "kind": "document",
+        "ref": "doc:missing",
     }
     result = validate_bundle(records, context=context)
     assert result.status == "invalid"
     assert any("/conflicts/0/source/ref" in d.pointer for d in result.diagnostics)
 
 
-@pytest.mark.parametrize("texts,status,code", [({}, "incomplete", "context.document_text_missing"),
-    ({"doc:us2-body": "wrong"}, "invalid", "document.hash_mismatch")])
+@pytest.mark.parametrize(
+    "texts,status,code",
+    [
+        ({}, "incomplete", "context.document_text_missing"),
+        ({"doc:us2-body": "wrong"}, "invalid", "document.hash_mismatch"),
+    ],
+)
 def test_document_is_checked_without_evidence(proposal_bundle, texts, status, code):
     records, _ = proposal_bundle
     records = [r for r in records if r["entity_type"] in ("source", "document")]
     result = validate_bundle(records, context=ValidationContext(document_texts=texts))
     assert result.status == status
-    assert any(d.entity_type == "document" and d.code == code for d in result.diagnostics)
+    assert any(
+        d.entity_type == "document" and d.code == code for d in result.diagnostics
+    )
 
 
 @pytest.mark.parametrize("tamper", ["facet", "owner_type", "owner_id", "condition_id"])
@@ -222,7 +276,12 @@ def test_assessment_must_reference_exact_condition(proposal_bundle, tamper):
     records, context = proposal_bundle
     proposal = records[-1]
     assessment = proposal["match"]["assessments"][1]
-    assessment[tamper] = {"facet": "task.kind", "owner_type": "recipe", "owner_id": "prof:missing", "condition_id": "cond:missing"}[tamper]
+    assessment[tamper] = {
+        "facet": "task.kind",
+        "owner_type": "recipe",
+        "owner_id": "prof:missing",
+        "condition_id": "cond:missing",
+    }[tamper]
     result = validate_bundle(records, context=context)
     assert result.status == "invalid"
     assert any(d.code == "assessment.inconsistent" for d in result.diagnostics)
@@ -239,8 +298,12 @@ def test_condition_identity_is_typed_even_when_owner_ids_collide(proposal_bundle
     for assessment in proposal["match"]["assessments"]:
         if assessment["owner_type"] == "recipe":
             assessment["owner_id"] = recipe["recipe_id"]
-    recipe["hard_constraints"][0]["condition_id"] = profile["hard_constraints"][0]["condition_id"]
-    recipe_assessment = next(a for a in proposal["match"]["assessments"] if a["owner_type"] == "recipe")
+    recipe["hard_constraints"][0]["condition_id"] = profile["hard_constraints"][0][
+        "condition_id"
+    ]
+    recipe_assessment = next(
+        a for a in proposal["match"]["assessments"] if a["owner_type"] == "recipe"
+    )
     recipe_assessment["condition_id"] = recipe["hard_constraints"][0]["condition_id"]
     assert validate_bundle(records, context=context).status == "valid"
     proposal["match"]["assessments"].remove(recipe_assessment)
@@ -257,10 +320,16 @@ def test_unknown_condition_cannot_be_disguised_as_known_facet(proposal_bundle):
 def extracted_evidence(load_fixture):
     evidence = load_fixture("us2/evidence_valid.json")
     evidence["provenance"] = {
-        "origin": "extracted", "source_content_sha256": "a" * 64,
-        "provider": "synthetic", "requested_model": "synthetic", "served_model": "synthetic",
-        "prompt_version": "test", "prompt_hash": "b" * 64, "schema_version": evidence["schema_version"],
-        "extractor_version": "test", "extracted_at": "2026-11-02T00:00:00Z",
+        "origin": "extracted",
+        "source_content_sha256": "a" * 64,
+        "provider": "synthetic",
+        "requested_model": "synthetic",
+        "served_model": "synthetic",
+        "prompt_version": "test",
+        "prompt_hash": "b" * 64,
+        "schema_version": evidence["schema_version"],
+        "extractor_version": "test",
+        "extracted_at": "2026-11-02T00:00:00Z",
     }
     return evidence
 
@@ -274,7 +343,9 @@ def test_extracted_schema_version_matches_record(load_fixture):
     assert any(d.pointer == "/provenance/schema_version" for d in result.diagnostics)
 
 
-@pytest.mark.parametrize("timestamp", ["yesterday", "2026-02-30T00:00:00Z", "2026-11-02"])
+@pytest.mark.parametrize(
+    "timestamp", ["yesterday", "2026-02-30T00:00:00Z", "2026-11-02"]
+)
 def test_provenance_timestamp_is_rfc3339(load_fixture, timestamp):
     evidence = extracted_evidence(load_fixture)
     evidence["provenance"]["extracted_at"] = timestamp
@@ -286,7 +357,9 @@ def test_provenance_timestamp_is_rfc3339(load_fixture, timestamp):
 def test_diagnostics_do_not_echo_comparison_text(load_fixture):
     evidence = load_fixture("us2/evidence_valid.json")
     secret = "\x1b[31mPRIVATE SOURCE TEXT"
-    evidence.update(type="controlled_ablation", comparison={"baseline": secret, "candidate": "all"})
+    evidence.update(
+        type="controlled_ablation", comparison={"baseline": secret, "candidate": "all"}
+    )
     result = validate_record(evidence)
     assert secret not in result.to_json()
     assert "PRIVATE SOURCE TEXT" not in render_text(result)
@@ -312,7 +385,7 @@ def test_renderer_escapes_dynamic_identity(load_fixture):
 
 
 def test_hard_constraint_diagnostics_are_stable_between_processes(fixtures_dir):
-    script = '''
+    script = """
 import json, sys
 from pathlib import Path
 from aimx_recipes.contextual import validate_bundle
@@ -322,7 +395,13 @@ records=load('us2/evidence_bundle_valid.json')+[load('us1/profile_valid.json'),l
 records[-1]['match']['assessments']=[]
 context=ValidationContext(document_texts={'doc:us2-body':(p/'us2/document_text.txt').read_text()})
 print(validate_bundle(records,context=context).to_json())
-'''
-    outputs = [subprocess.check_output([sys.executable, "-c", script, str(fixtures_dir)],
-        env={**os.environ, "PYTHONHASHSEED": seed}, text=True) for seed in ("1", "2", "3")]
+"""
+    outputs = [
+        subprocess.check_output(
+            [sys.executable, "-c", script, str(fixtures_dir)],
+            env={**os.environ, "PYTHONHASHSEED": seed},
+            text=True,
+        )
+        for seed in ("1", "2", "3")
+    ]
     assert outputs[0] == outputs[1] == outputs[2]

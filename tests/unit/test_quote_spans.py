@@ -1,7 +1,6 @@
 """Unit tests for Unicode quote span verification, limits, and hash verification."""
 
 import hashlib
-import pytest
 from aimx_recipes.models import ValidationContext
 from aimx_recipes.contextual import validate_bundle
 
@@ -89,7 +88,9 @@ def test_quote_exact_500_chars_passes_501_fails():
     }
 
     ctx = ValidationContext(document_texts={"doc:1": doc_text})
-    res_500 = validate_bundle([src_record, doc_record, prob_record, attempt_record, ev_500], context=ctx)
+    res_500 = validate_bundle(
+        [src_record, doc_record, prob_record, attempt_record, ev_500], context=ctx
+    )
     assert res_500.status == "valid"
 
     # 501 chars quote
@@ -97,7 +98,9 @@ def test_quote_exact_500_chars_passes_501_fails():
     ev_501["evidence_id"] = "ev:501"
     ev_501["quote"] = "A" * 501
     ev_501["char_end"] = 501
-    res_501 = validate_bundle([src_record, doc_record, prob_record, attempt_record, ev_501], context=ctx)
+    res_501 = validate_bundle(
+        [src_record, doc_record, prob_record, attempt_record, ev_501], context=ctx
+    )
     assert res_501.status == "invalid"
     assert any(d.code == "quote.too_long" for d in res_501.diagnostics)
 

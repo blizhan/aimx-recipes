@@ -1,6 +1,24 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 2.0.1 → 2.1.0
+Bump rationale: MINOR — adds decision C-16 and materially changes the scope
+and outcome of spec 002 (all resolvable writeups ingested; P0 is a recorded
+membership flag). No vision or existing constraint is reversed.
+
+Changes this revision (2026-11-03; user-confirmed after specifying 002):
+  - 002: planned → specced; link the spec; outcome and scope updated (prior
+    wording struck through, not deleted); spike figures added to notes
+  - Decision added: C-16 (P0 membership rule: reviewed list > tag rule >
+    default exclude; the heuristic only proposes candidates). Resolves Q2.
+  - 003 notes: P0 is consumed only once no heuristic candidate is unreviewed
+
+Specs affected: 002 (status, outcome, scope, notes), 003 (notes)
+Open questions added/resolved: resolved Q2
+Follow-up: docs/DATA_SOURCES.md §3.3 still says "Spec 002 decides the final
+rule"; update it when 002 is implemented.
+
+Previous revision (retained for history):
 Version change: 2.0.0 → 2.0.1
 Bump rationale: PATCH — lifecycle status and terminology clarification only;
 no vision, constraint meaning, spec scope, dependency, or open question changed.
@@ -169,6 +187,17 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
   underperforms is removed from the worker group in magpie's config, and the
   records it served are re-extracted. Benchmark pre-labelling uses a model
   outside the worker group. _Supersedes C-07; resolves Q1._
+- **C-16 — P0 membership is a reviewed, recorded flag:** ingest snapshots
+  every resolvable Meta Kaggle writeup with its competition context, and
+  records P0 membership per competition with its deciding rule and rule
+  version. Precedence: a version-controlled reviewed list (include / exclude,
+  each with a reason) > the tag rule (`tabular` or `time series analysis`,
+  not `image` / `computer vision` / `text` / `nlp` / `audio` / `video`) >
+  default exclude. A deterministic heuristic (metric family, dataset
+  description signals) only proposes candidates for review and never decides
+  membership. Changing the subset needs no re-ingest. The 2026-11-03 spike
+  showed tags alone miss 154 untagged and 113 other-tag competitions with
+  writeups, including well-known tabular ones. _Resolves Q2._
 
 ## Planned Specs
 
@@ -204,22 +233,37 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
   breaking correction of the unreleased 1.0.0 draft and the explicit
   extraction-regeneration decision; no migration or regeneration is performed.
 
-### 002 — Meta Kaggle source adapter & corpus normalization  [status: planned]
+### 002 — Meta Kaggle source adapter & corpus normalization  [status: specced]
 
-- **Description:** ingest the P0 subset of Meta Kaggle into hashed Parquet
-  snapshots and normalize it into Source / Document / competition-context
-  records.
+- **Description:** ~~ingest the P0 subset of Meta Kaggle into hashed Parquet
+  snapshots~~ ingest every resolvable Meta Kaggle writeup and its competition
+  context into hashed Parquet snapshots, normalize them into Source /
+  Document / Problem records, and record P0 membership per competition.
+  _(Changed 2026-11-03, C-16.)_
 - **Outcome:** `aimx-recipes ingest kaggle` produces `data/raw/` Parquet with
   sha256 manifests and a normalized document table (writeup text, competition
   overview, evaluation description, dataset description, dates, metric,
-  medal/rank) that the index build and the extractor consume.
-- **Scope (in):** writeup resolution path; competition metadata join; P0
-  subset selection rule; Source identity and de-duplication; snapshot
+  medal/rank) that the index build and the extractor consume. It covers all
+  618 competitions / 6,276 writeup references in the 2026-11-01 snapshot;
+  every reference is ingested or excluded with a reason. P0 membership is a
+  recorded flag with its deciding rule, plus a heuristic candidate report for
+  review. Records validate against the 001 contracts.
+- **Scope (in):** writeup resolution path; competition metadata join; ~~P0
+  subset selection rule~~ P0 membership rule, heuristic candidate report, and
+  reviewed list (C-16); Source identity and de-duplication; snapshot
   manifest; license field per source.
-- **Scope (out):** forum threads beyond writeups (009); notebooks (012).
+- **Scope (out):** forum threads beyond writeups (009); notebooks (012);
+  extraction and Problem Profiles (005); index build (006); Kaggle API
+  download; incremental refresh (009).
 - **Depends on:** 001
-- **Governed by:** C-04, C-05
-- **Notes:** tag filter (`tabular` or `time series analysis`, excluding image /
+- **Governed by:** C-04, C-05, C-13, C-16
+- **Spec dir:** [002-meta-kaggle-ingest](specs/002-meta-kaggle-ingest/)
+- **Notes:** 2026-11-03 spike on the 2026-11-01 snapshot: tag-in 178
+  competitions / 1,570 writeups; modality-excluded 173 / 2,535; other tags
+  only 113 / 1,721; untagged 154 / 450. No writeup topic is shared between
+  teams. 156 writeups lack `RawMarkdown` (fall back to `Message`); 3 are
+  empty, 65 are under 200 characters, 1 is a duplicate-content pair.
+  Earlier notes: tag filter (`tabular` or `time series analysis`, excluding image /
   computer vision / text / nlp) yields 179 competitions, 1,582 writeups,
   ~7.7M characters (~1.9M tokens), but misses older untagged competitions —
   final subset rule is Q2. Median writeup length grew from ~2.7k chars (2019)
@@ -243,7 +287,9 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 - **Governed by:** C-09
 - **Notes:** pre-labelling uses a model outside the magpie worker group
   (C-15). Tabloom cases enter as project-authored profiles and judgments
-  (C-14); their dev/test assignment is decided here.
+  (C-14); their dev/test assignment is decided here. The benchmark consumes
+  the P0 subset only once no heuristic candidate from 002 is unreviewed
+  (002 SC-004, C-16).
 
 ### P0b — Problem-aware vertical slice
 
@@ -405,8 +451,9 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 - ~~**Q1 — Extraction model winner:** which worker-tier model (and fallback)
   wins on the 50-document set for quote fidelity, evidence typing, and cost?
   Resolved in 005.~~ _Resolved 2026-11-02 → C-15._
-- **Q2 — Exact P0 subset:** tag filter misses older untagged tabular
-  competitions; add metric-based or manual inclusion? Resolved in 002.
+- ~~**Q2 — Exact P0 subset:** tag filter misses older untagged tabular
+  competitions; add metric-based or manual inclusion? Resolved in 002.~~
+  _Resolved 2026-11-03 → C-16._
 - ~~**Q3 — Writeup text rights:** does Meta Kaggle's apache-2.0 cover
   user-authored forum text? The no-full-text policy (C-05) limits exposure;
   confirm before the first public data release.~~ _Resolved 2026-11-02 →
@@ -439,4 +486,4 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 
 ---
 
-**Version**: 2.0.1 | **Ratified**: 2026-11-02 | **Last Amended**: 2026-11-02
+**Version**: 2.1.0 | **Ratified**: 2026-11-02 | **Last Amended**: 2026-11-03

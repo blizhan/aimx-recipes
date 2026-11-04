@@ -97,7 +97,21 @@ assert bundle_result.contextual_complete is True
 - **Incomplete vs. Error**: Missing contextual data (such as document text in `ValidationContext`) yields `status="incomplete"`. Structural or referential errors dominate and yield `status="invalid"`.
 - **Governance Boundary**: Experiment proposals always retain `review_status="requires_lead_review"`. Validation never mutates records, grants execution admission, or accesses aimx runtime state.
 
-## Proposed CLI
+## CLI
+
+### Ingesting Meta Kaggle
+
+The `ingest kaggle` command ingests a local Meta Kaggle dump, builds immutable Parquet snapshots, normalizes writeup documents, and evaluates P0 tabular competition membership:
+
+```bash
+aimx-recipes ingest kaggle --meta-kaggle ~/data/kaggle/meta-kaggle --label 2026-11-01 --json
+```
+
+- **Local-only data**: Raw source text and full writeups are written exclusively to local, git-ignored `data/raw/kaggle/<snapshot_id>/` directories. Only curatorial metadata and schemas are tracked in git.
+- **Contract records**: Generates `records/sources.jsonl`, `records/documents.jsonl`, and `records/problems.jsonl` validated against 001 schemas.
+- **P0 Review Loop**: Unreviewed tabular candidates are written to `candidate-report.md`. Curators review candidates by editing `curation/kaggle/p0-reviewed.yaml` and re-running ingest (which reuses the snapshot without re-normalization).
+
+### Retrieval & Query (Proposed)
 
 ```bash
 aimx-recipes match --problem problem.json --json        # candidates + matched/unknown/violated facets

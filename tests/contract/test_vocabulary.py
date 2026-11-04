@@ -1,6 +1,5 @@
 """Contract tests for facet vocabulary, action taxonomy, and condition representations."""
 
-import pytest
 from aimx_recipes.schema_registry import get_global_registry
 from aimx_recipes.validation import validate_record
 
@@ -69,7 +68,12 @@ def test_taxonomy_seven_parents_and_leaves():
 
     expected_groups = {
         "data_preparation": ["imputation", "filtering", "resampling"],
-        "feature_engineering": ["encoding", "lag_features", "aggregation", "transformation"],
+        "feature_engineering": [
+            "encoding",
+            "lag_features",
+            "aggregation",
+            "transformation",
+        ],
         "model_choice": ["family_selection"],
         "training": ["regularization", "objective", "optimization"],
         "validation": ["split"],
@@ -98,7 +102,10 @@ def test_profile_rejects_unknown_facet():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "/facets/unsupported.custom_facet" in d.pointer for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "/facets/unsupported.custom_facet" in d.pointer
+        for d in res.diagnostics
+    )
 
 
 def test_profile_unknown_basis_requires_null_value():
@@ -119,7 +126,9 @@ def test_profile_unknown_basis_requires_null_value():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "basis" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "basis" in d.check for d in res.diagnostics
+    )
 
 
 def test_profile_known_basis_requires_nonnull_value():
@@ -139,7 +148,9 @@ def test_profile_known_basis_requires_nonnull_value():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "basis" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "basis" in d.check for d in res.diagnostics
+    )
 
 
 def test_condition_rejects_disallowed_operator():
@@ -162,7 +173,9 @@ def test_condition_rejects_disallowed_operator():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "operator" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "operator" in d.check for d in res.diagnostics
+    )
 
 
 def test_condition_present_absent_requires_null_operand():
@@ -184,7 +197,9 @@ def test_condition_present_absent_requires_null_operand():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "operand" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "operand" in d.check for d in res.diagnostics
+    )
 
 
 def test_recipe_rejects_parent_taxonomy_action():
@@ -211,7 +226,9 @@ def test_recipe_rejects_parent_taxonomy_action():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "value.invalid" and "/action" in d.pointer for d in res.diagnostics)
+    assert any(
+        d.code == "value.invalid" and "/action" in d.pointer for d in res.diagnostics
+    )
 
 
 def test_recipe_rejects_duplicate_condition_ids():
@@ -251,4 +268,7 @@ def test_recipe_rejects_duplicate_condition_ids():
     }
     res = validate_record(record)
     assert res.status == "invalid"
-    assert any(d.code == "identity.duplicate" and "condition" in d.check for d in res.diagnostics)
+    assert any(
+        d.code == "identity.duplicate" and "condition" in d.check
+        for d in res.diagnostics
+    )
